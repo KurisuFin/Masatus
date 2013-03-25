@@ -1,0 +1,35 @@
+Ryhmä Masatus ohtu 2013 miniprojekti
+====================================
+
+Oleellista luettavaa:
+---------------------
+* http://www.playframework.com/documentation/2.1.0/Home
+* http://www.playframework.com/documentation/2.1.0/Anatomy
+* http://www.playframework.com/documentation/2.0/JavaEbean
+* http://www.playframework.com/documentation/2.0/Samples
+* http://twitter.github.com/bootstrap/
+
+Koodin käyttöönotto
+-------------------
+1. Katso asennusohjeet:
+   http://www.playframework.com/documentation/2.1.0/Installing
+2. Lataa Play-framework omalle koneelle osoitteesta. (Olettaen että
+   koneellasi on jo 'JDK 6 or later'):
+   http://downloads.typesafe.com/play/2.1.0/play-2.1.0.zip
+3. Pura paketti ja aseta play polkuun:
+   export PATH=$PATH:/relativePath/to/play
+4. Testaa toiminta: play help
+
+5. Aja projektin kansiossa: play run
+6. Mene selaimella osoitteeseen http://localhost:9000
+   Saat ensimmäisellä kerralla virheilmoituksen, mutta asia korjaantuu kun
+   painat "Apply This script now!" -nappia. Tämä alustaa tietokannan.
+
+
+Oleellisin perusrakenne
+-----------------------
+conf/application.conf - Perus config (tietokanta jne)
+app/controllers - Applikaatio koodi
+app/models - Tietorakenne (ja samalla tietokantamäärittely)
+app/views - HTML templatet
+public - js, css, kuva jne. tiedostot
