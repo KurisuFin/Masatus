@@ -40,9 +40,10 @@ public class DatabaseTest {
         Helpers.running(Helpers.fakeApplication(Helpers.inMemoryDatabase()), new Runnable() {
             public void run() {
                 Database.save(ref1);
-                assertEquals(1, ref1.getId());
+                assertNotNull(ref1.getId());
                 Database.save(ref2);
-                assertEquals(2, ref2.getId());
+                assertNotNull(ref2.getId());
+                assertTrue(!ref1.getId().equals(ref2.getId()));
             }
         });
     }
