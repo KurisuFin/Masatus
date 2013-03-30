@@ -1,9 +1,9 @@
-@(content: Html)
+@(title: String)(content: Html)
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Lähdetietokanta</title>
+        <title>MasaDB - @title</title>
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")">
         <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
     </head>
@@ -11,8 +11,8 @@
 
         <header class="topbar">
             <h1 class="fill">
-                <a href="@routes.Application.index()">
-                    Play 2.0 lähdetietokanta
+                <a href="@routes.ReferenceList.show">
+                    MasaDB - @title
                 </a>
             </h1>
         </header>

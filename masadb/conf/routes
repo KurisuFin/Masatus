@@ -2,8 +2,18 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
-GET     /                           controllers.Application.index()
+# Aloitussivu - viitelista
+GET     /                           controllers.ReferenceList.show()
+
+# Viitelista
+GET     /list                       controllers.ReferenceList.show()
+
+# Viitteiden lisäys
+GET     /add                        controllers.AddReference.show()
+POST    /add                        controllers.AddReference.save()
+
+# Viitteiden tarkastelu
+GET     /view                       controllers.ViewReference.show()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

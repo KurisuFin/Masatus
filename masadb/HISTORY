@@ -4,3 +4,14 @@ Changelog
 0.1 (2013-03-25)
 ----------------
 - Esimerkin pystytys ja simppeli dokumentaatio
+
+2013-03-25
+----------------
+- Tietue Viitetietojen tallentamiseksi.
+- Database-luokka (ei välttämätön, mutta hyvä olla yhdessä paikkaa määriteltynä tarvitut tietokantaoperaatiot).
+- Muutamia testejä.
+
+2013-03-30
+----------------
+- Sivu viitetietojen syöttämiseksi.
+- Application-pohja poistettu. Oli puhetta, että voisi Applicationista periyttää kaikki kontrollerit, mutta kun niissä on pelkkiä staattisia metodeja niin hyöty on aika vähäinen.

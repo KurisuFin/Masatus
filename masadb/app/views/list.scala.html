@@ -1,0 +1,9 @@
+@(refs: List[Reference])
+
+@main("Kaikki lähdeviitteet") {
+
+    @for(r <- refs) {
+        <p>Id: @r.getId(), Nimike: @r.title, Tekijä: @r.author</p>
+    }
+
+}
