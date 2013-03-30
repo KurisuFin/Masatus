@@ -1,5 +1,5 @@
 
-import controllers.Database;
+import db.Database;
 import java.util.List;
 import models.Reference;
 import static org.junit.Assert.*;
