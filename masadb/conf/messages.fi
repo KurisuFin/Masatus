@@ -1,0 +1,29 @@
+# Default messages
+
+# --- Constraints
+constraint.required=Required
+constraint.min=Pienin arvo: {0}
+constraint.max=Suurin arvo: {0}
+constraint.minLength=Vähimmäispituus: {0}
+constraint.maxLength=Enimmäispituus: {0}
+constraint.email=Sähköposti
+
+# --- Formats
+format.date=Date (''{0}'')
+format.numeric=Numeric
+format.real=Real
+
+# --- Errors
+error.invalid=Virheellinen arvo
+error.required=Kenttä on pakollinen
+error.number=Kentän arvon tulee olla numeerinen
+error.real=Arvon tulee olla desimaaliluku
+error.real.precision=Vaaditaan desimaaliluku, jossa enintään {0} merkitsevää numeroa, ja {1} desimaali(a)
+error.min=Arvon tulee olla vähintään {0}
+error.min.strict=Arvon tulee olla suurempi kuin {0}
+error.max=Arvo saa olla enintään {0}
+error.max.strict=Arvon tulee olla pienempi kuin {0}
+error.minLength=Vähimmäispituus on {0}
+error.maxLength=Enimmäispituus on {0}
+error.email=Sähköpostiosoite
+error.pattern=Arvon tulee noudattaa kaavaa: {0}
