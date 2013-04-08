@@ -49,7 +49,7 @@ public class AddReference extends Controller {
      */
     public static Result save() {
         Form<UserInput> form = form(UserInput.class).bindFromRequest();
-        if (form.hasErrors()) {
+        if (formHasErrors(form)) {
             return badRequest(add.render(form));
         } else {
             UserInput input = form.get();
@@ -62,7 +62,27 @@ public class AddReference extends Controller {
 
             Database.save(ref);
 
-            return ReferenceList.show();
+            return redirect(routes.ReferenceList.show());
         }
+    }
+
+    /**
+     * Tarkistaa onko lomakkeessa virheellisiä kenttiä.
+     *
+     * @param form lomakkeen tiedot
+     * @return true jos lomakkeessa on virheitä
+     */
+    private static boolean formHasErrors(Form<UserInput> form) {
+        if (form.hasErrors()) {
+            return true;
+        }
+
+        if (!form.get().citeKey.matches("[a-zA-Z][a-zA-Z0-9_-]*")) {
+            form.reject("citeKey", "Voi sisältää vain merkkejä"
+                    + " \"a-z\", \"A-Z\", \"0-9\", \"-\", ja \"_\".");
+            return true;
+        }
+
+        return false;
     }
 }
