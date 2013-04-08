@@ -2,8 +2,26 @@
 
 @main("Kaikki lähdeviitteet") {
 
-    @for(r <- refs) {
-        <p>Id: @r.getId(), Nimike: @r.title, Tekijä: @r.author</p>
+    <a href="add">Lisää uusi viite</a>
+
+    @if(refs.isEmpty()) {
+        <p>Tietokantaan ei ole lisätty vielä yhtään viitettä.</p>
+    } else {
+        <table>
+            <tr>
+                <th>Nimi</th>
+                <th>Tekijä</th>
+                <th>Vuosi</th>
+            </tr>
+
+        @for(r <- refs) {
+            <tr>
+                <td><a href="view?id=@r.getId()">@r.title</a></td>
+                <td>@r.author</td>
+                <td>@r.year</td>
+            </tr>
+        }
+        <table>
     }
 
 }
