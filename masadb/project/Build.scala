@@ -5,8 +5,8 @@ import templemore.xsbt.cucumber.CucumberPlugin
 
 object ApplicationBuild extends Build {
 
-  val appName         = "MasatusMini01"
-  val appVersion      = "1.0-SNAPSHOT"
+  val appName         = "MasaDB"
+  val appVersion      = "0.1-SNAPSHOT"
 
   val buildSettings = Defaults.defaultSettings ++
                       CucumberPlugin.cucumberSettings ++
