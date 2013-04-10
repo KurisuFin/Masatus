@@ -125,12 +125,18 @@ public class Reference extends Model {
     }
 
     /**
-     * Muuntaa erikoismerkit BibTeXin vaatimaan muotoon.
+     * Muuntaa erikoismerkit BibTeXin vaatimaan muotoon, ja akronyymit siten
+     * ettei niitä muuteta automaattisesti pieniksi kirjaimiksi.
      */
     private String encodeString(String s) {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < s.length(); ++i) {
+            boolean capitalize = isPartOfAcronym(s, i);
+
+            if(capitalize)
+                sb.append('{');
+
             switch (s.charAt(i)) {
                 case 'ä':
                     sb.append("\\\"{a}");
@@ -144,12 +150,30 @@ public class Reference extends Model {
                 case 'Ö':
                     sb.append("\\\"{O}");
                     break;
+                case 'å':
+                    sb.append("\\r{a}");
+                    break;
+                case 'Å':
+                    sb.append("\\r{A}");
+                    break;
                 default:
                     sb.append(s.charAt(i));
                 //TODO muut erikoismerkit
             }
+
+            if(capitalize)
+                sb.append('}');
         }
 
         return sb.toString();
+    }
+
+    private boolean isPartOfAcronym(String s, int idx) {
+        if (Character.isUpperCase(s.charAt(idx))) {
+            return idx > 0 && Character.isUpperCase(s.charAt(idx - 1))
+                    || idx < s.length() - 1 && Character.isUpperCase(s.charAt(idx + 1));
+        }
+
+        return false;
     }
 }
