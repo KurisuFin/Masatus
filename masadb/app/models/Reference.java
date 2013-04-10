@@ -88,4 +88,68 @@ public class Reference extends Model {
     public Integer getId() {
         return id;
     }
+
+    /**
+     * Generoi viitettä vastaavan BibTeX-koodin.
+     *
+     * @return Koodi merkkijonona.
+     */
+    public String generateBibtexEntry() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("@book{" + citeKey + ",\n");
+
+        generateTag("title", title, sb);
+        generateTag("author", author, sb);
+        generateTag("publisher", publisher, sb);
+        generateTag("year", year != null ? Integer.toString(year) : null, sb);
+        generateTag("address", address, sb);
+        generateTag("volume", volume != null ? Integer.toString(volume) : null, sb);
+        generateTag("edition", edition, sb);
+
+        sb.append("}");
+
+        return sb.toString();
+    }
+
+    /**
+     * Luo BibTex-koodin yksittäistä tagia varten.
+     */
+    private void generateTag(String name, String value, StringBuilder sb) {
+        if (value != null) {
+            sb.append(name);
+            sb.append(" = {");
+            sb.append(encodeString(value));
+            sb.append("},\n");
+        }
+    }
+
+    /**
+     * Muuntaa erikoismerkit BibTeXin vaatimaan muotoon.
+     */
+    private String encodeString(String s) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < s.length(); ++i) {
+            switch (s.charAt(i)) {
+                case 'ä':
+                    sb.append("\\\"{a}");
+                    break;
+                case 'Ä':
+                    sb.append("\\\"{A}");
+                    break;
+                case 'ö':
+                    sb.append("\\\"{o}");
+                    break;
+                case 'Ö':
+                    sb.append("\\\"{O}");
+                    break;
+                default:
+                    sb.append(s.charAt(i));
+                //TODO muut erikoismerkit
+            }
+        }
+
+        return sb.toString();
+    }
 }
