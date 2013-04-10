@@ -1,13 +1,48 @@
-@()
+@(ref: Reference)
 
 @main("Viitteen tiedot") {
 
-    <p>
-        Tähän yksittäisen viitteen tiedot, ja myöhemmin muokkaus, poisto yms.
-    </p>
+<h2>Tiedot:</h2>
+<table>
+    <tr>
+        <td>Nimi:</td>
+        <td>@ref.title</td>
+    </tr>
+    <tr>
+        <td>Tekijä(t):</td>
+        <td>@ref.author</td>
+    </tr>
+    <tr>
+        <td>Julkaisija:</td>
+        <td>@ref.publisher</td>
+    </tr>
+    <tr>
+        <td>Vuosi:</td>
+        <td>@ref.year</td>
+    </tr>
+    <tr>
+        <td>Sitaattiavain:</td>
+        <td>@ref.year</td>
+    </tr>
+    <tr>
+        <td>Julkaisijan osoite:</td>
+        <td>@ref.address</td>
+    </tr>
+    <tr>
+        <td>Painos:</td>
+        <td>@ref.edition</td>
+    </tr>
+    <tr>
+        <td>Osa:</td>
+        <td>@ref.volume</td>
+    </tr>
+</table>
 
-    <p class="buttons">
-        <a href="@routes.ReferenceList.show">Takaisin</a>
-    </p>
+<h2>BibTeX:</h2>
+<pre>@ref.generateBibtexEntry()</pre>
+
+<p class="buttons">
+    <a href="@routes.ReferenceList.show">Takaisin</a>
+</p>
 
 }

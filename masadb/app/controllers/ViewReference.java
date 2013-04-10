@@ -1,7 +1,11 @@
 package controllers;
 
+import db.Database;
+import models.Reference;
 import play.mvc.Controller;
+import play.mvc.Http.Request;
 import play.mvc.Result;
+import views.html.main;
 import views.html.view;
 
 /**
@@ -14,7 +18,11 @@ public class ViewReference extends Controller {
      * @return Sivun sisältö.
      */
     public static Result show() {
-        return ok(view.render());
+        int id = Integer.parseInt(Controller.request().getQueryString("id"));
+        Reference ref = Database.find(id);
+        if (ref == null)
+            return badRequest("Viitettä ei löytynyt.");
+        return ok(view.render(ref));
     }
 
 }

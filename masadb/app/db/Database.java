@@ -18,6 +18,14 @@ public class Database {
     }
 
     /**
+     * Etsii yksittäisen viitten tunnisteen perusteella.
+     * @return Viiteobjekti.
+     */
+    public static Reference find(int id) {
+        return Ebean.find(Reference.class, id);
+    }
+
+    /**
      * Palauttaa kaikki viitteet listana. TODO: Voisi kehittää niin, että
      * setFirstRow/setMaxRows:n avulla palautetaan vain osa, jolloin lista
      * voidaan jakaa useaan sivuun.
