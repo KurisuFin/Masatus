@@ -104,8 +104,8 @@ public class Reference extends Model {
         generateTag("publisher", publisher, sb);
         generateTag("year", year != null ? Integer.toString(year) : null, sb);
         generateTag("address", address, sb);
-        generateTag("volume", volume != null ? Integer.toString(volume) : null, sb);
         generateTag("edition", edition, sb);
+        generateTag("volume", volume != null ? Integer.toString(volume) : null, sb);
 
         sb.append("}");
 
@@ -116,7 +116,7 @@ public class Reference extends Model {
      * Luo BibTex-koodin yksittäistä tagia varten.
      */
     private void generateTag(String name, String value, StringBuilder sb) {
-        if (value != null) {
+        if (value != null && !value.isEmpty()) {
             sb.append(name);
             sb.append(" = {");
             sb.append(encodeString(value));
