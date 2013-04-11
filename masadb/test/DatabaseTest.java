@@ -26,15 +26,15 @@ public class DatabaseTest {
 
         ref1 = new Reference("M12", "The Title", "Masa",
                 "Masa Publishing", 2012);
-        ref1.address = "Masala";
-        ref1.edition = "Second";
-        ref1.volume = 7;
+        ref1.setAddress("Masala");
+        ref1.setEdition("Second");
+        ref1.setVolume(7);
 
         ref2 = new Reference("M13", "The Title II", "Masa II",
                 "Masa Publishing", 2013);
-        ref2.address = "Masala";
-        ref2.edition = null;
-        ref2.volume = 7;
+        ref2.setAddress("Masala");
+        ref2.setEdition(null);
+        ref2.setVolume(7);
     }
 
     @After
@@ -57,14 +57,14 @@ public class DatabaseTest {
 
         List<Reference> all = Database.findAll();
         assertEquals(1, all.size());
-        assertEquals(ref1.citeKey, all.get(0).citeKey);
-        assertEquals(ref1.title, all.get(0).title);
-        assertEquals(ref1.author, all.get(0).author);
-        assertEquals(ref1.publisher, all.get(0).publisher);
-        assertEquals(ref1.year, all.get(0).year);
-        assertEquals(ref1.address, all.get(0).address);
-        assertEquals(ref1.edition, all.get(0).edition);
-        assertEquals(ref1.volume, all.get(0).volume);
+        assertEquals(ref1.getCiteKey(), all.get(0).getCiteKey());
+        assertEquals(ref1.getTitle(), all.get(0).getTitle());
+        assertEquals(ref1.getAuthor(), all.get(0).getAuthor());
+        assertEquals(ref1.getPublisher(), all.get(0).getPublisher());
+        assertEquals(ref1.getYear(), all.get(0).getYear());
+        assertEquals(ref1.getAddress(), all.get(0).getAddress());
+        assertEquals(ref1.getEdition(), all.get(0).getEdition());
+        assertEquals(ref1.getVolume(), all.get(0).getVolume());
     }
 
     @Test

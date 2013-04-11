@@ -21,7 +21,7 @@ public class AddReferenceTest {
 
     @Before
     public void setUp() {
-        fa = fakeApplication(Helpers.inMemoryDatabase());
+        fa = fakeApplication(inMemoryDatabase());
         start(fa);
 
         input = new TreeMap<String, String>();
@@ -71,14 +71,14 @@ public class AddReferenceTest {
         status(postTestInput(input));
         List<Reference> refs = Database.findAll();
         assertThat(Database.findAll().size()).isEqualTo(1);
-        assertThat(refs.get(0).title).isEqualTo(input.get("title"));
-        assertThat(refs.get(0).author).isEqualTo(input.get("author"));
-        assertThat(refs.get(0).publisher).isEqualTo(input.get("publisher"));
-        assertThat(refs.get(0).year).isEqualTo(Integer.parseInt(input.get("year")));
-        assertThat(refs.get(0).citeKey).isEqualTo(input.get("citeKey"));
-        assertThat(refs.get(0).address).isEqualTo(input.get("address"));
-        assertThat(refs.get(0).edition).isEqualTo(input.get("edition"));
-        assertThat(refs.get(0).volume).isEqualTo(Integer.parseInt(input.get("volume")));
+        assertThat(refs.get(0).getTitle()).isEqualTo(input.get("title"));
+        assertThat(refs.get(0).getAuthor()).isEqualTo(input.get("author"));
+        assertThat(refs.get(0).getPublisher()).isEqualTo(input.get("publisher"));
+        assertThat(refs.get(0).getYear()).isEqualTo(Integer.parseInt(input.get("year")));
+        assertThat(refs.get(0).getCiteKey()).isEqualTo(input.get("citeKey"));
+        assertThat(refs.get(0).getAddress()).isEqualTo(input.get("address"));
+        assertThat(refs.get(0).getEdition()).isEqualTo(input.get("edition"));
+        assertThat(refs.get(0).getVolume()).isEqualTo(Integer.parseInt(input.get("volume")));
     }
 
     @Test

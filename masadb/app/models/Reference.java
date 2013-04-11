@@ -23,12 +23,12 @@ public class Reference extends Model {
      * automaattisesti käyttäjän puolesta.
      */
     @NotNull
-    public String citeKey;
+    private String citeKey;
 
     /**
      * Julkaisijan osoite. Valinnainen kenttä.
      */
-    public String address;
+    private String address;
 
     /**
      * Tekijän tai tekijöiden nimet. Pakollinen kenttä.
@@ -39,30 +39,30 @@ public class Reference extends Model {
     /**
      * Kirjan painos. Valinnainen kenttä.
      */
-    public String edition;
+    private String edition;
 
     /**
      * Julkaisuvuosi. Pakollinen kenttä.
      */
     @NotNull
-    public Integer year;
+    private Integer year;
 
     /**
      * Nimi. Pakollinen kenttä.
      */
     @NotNull
-    public String title;
+    private String title;
 
     /**
      * Julkaisija. Valinnainen kenttä.
      */
     @NotNull
-    public String publisher;
+    private String publisher;
 
     /**
      * Kirjan osa. Valinnainen kenttä.
      */
-    public Integer volume;
+    private Integer volume;
 
     /**
      * Luo uuden viite-objektin pakollisista tiedoista.
@@ -74,11 +74,11 @@ public class Reference extends Model {
      */
     public Reference(String citeKey, String title, String author, String publisher,
             int year) {
-        this.citeKey = citeKey;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.year = year;
+        setCiteKey(citeKey);
+        setTitle(title);
+        setAuthor(author);
+        setPublisher(publisher);
+        setYear(year);
     }
 
     /**
@@ -175,5 +175,69 @@ public class Reference extends Model {
         }
 
         return false;
+    }
+
+    public String getCiteKey() {
+        return citeKey;
+    }
+
+    public void setCiteKey(String citeKey) {
+        this.citeKey = citeKey;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getEdition() {
+        return edition;
+    }
+
+    public void setEdition(String edition) {
+        this.edition = edition;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getYear() {
+        return year;
+    }
+
+    public void setYear(Integer year) {
+        this.year = year;
+    }
+
+    public Integer getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Integer volume) {
+        this.volume = volume;
     }
 }

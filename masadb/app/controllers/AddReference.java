@@ -56,9 +56,9 @@ public class AddReference extends Controller {
 
             Reference ref = new Reference(input.citeKey, input.title,
                     input.author, input.publisher, input.year);
-            ref.address = input.address;
-            ref.volume = input.volume;
-            ref.edition = input.edition;
+            ref.setAddress(input.address);
+            ref.setVolume(input.volume);
+            ref.setEdition(input.edition);
 
             Database.save(ref);
 

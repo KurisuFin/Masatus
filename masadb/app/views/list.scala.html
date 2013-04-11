@@ -16,9 +16,9 @@
 
         @for(r <- refs) {
             <tr>
-                <td><a href="view?id=@r.getId()">@r.title</a></td>
-                <td>@r.author</td>
-                <td>@r.year</td>
+                <td><a href="view?id=@r.getId()">@r.getTitle()</a></td>
+                <td>@r.getAuthor()</td>
+                <td>@r.getYear()</td>
             </tr>
         }
         </table>
