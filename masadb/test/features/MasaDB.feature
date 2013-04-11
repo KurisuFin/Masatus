@@ -1,10 +1,15 @@
 Feature: MasaDB
-  In order to list books, one book must be added to database.
+  A new book can be added to database.
  
-  Scenario: Adds book to database and lists
-    Given Set a database
-    When I go to the home page
-    Then I should see "0 books"
-    When I go to the add form in "label" with "add form"    
-    And  I push "add"
-    Then I should see "1 books"
+  Scenario: Empty database has no books
+    Given A new database
+    When  I go to the book list
+    Then  Book list should have no books
+
+  Scenario: Adding the first book
+    Given A new database
+    When  I go to the main page
+    And   I open the form for adding a new book
+    And   I submit book information
+    And   I go to the book list
+    Then  Book list should contain the book
