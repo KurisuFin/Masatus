@@ -20,18 +20,18 @@ public class ReferenceTest {
 
     @Test
     public void constructorSetsRequiredValues() {
-        assertEquals("M12", ref.citeKey);
-        assertEquals("The Title", ref.title);
-        assertEquals("Masa", ref.author);
-        assertEquals("Masa Publishing", ref.publisher);
-        assertEquals(2012, (int) ref.year);
+        assertEquals("M12", ref.getCiteKey());
+        assertEquals("The Title", ref.getTitle());
+        assertEquals("Masa", ref.getAuthor());
+        assertEquals("Masa Publishing", ref.getPublisher());
+        assertEquals(2012, (int) ref.getYear());
     }
 
     @Test
     public void optionalValuesAreNull() {
-        assertNull(ref.address);
-        assertNull(ref.edition);
-        assertNull(ref.volume);
+        assertNull(ref.getAddress());
+        assertNull(ref.getEdition());
+        assertNull(ref.getVolume());
     }
 
     @Test
@@ -47,9 +47,9 @@ public class ReferenceTest {
 
     @Test
     public void bibtexWithOptionalTags() {
-        ref.address = "Masala";
-        ref.edition = "Second";
-        ref.volume = 7;
+        ref.setAddress("Masala");
+        ref.setEdition("Second");
+        ref.setVolume(7);
         assertEquals("@book{M12,\n"
                 + "title = {The Title},\n"
                 + "author = {Masa},\n"
@@ -64,7 +64,7 @@ public class ReferenceTest {
 
     @Test
     public void bibtexWithSpecialCharacters() {
-        ref.title = "åäöÅÄÖ";
+        ref.setTitle("åäöÅÄÖ");
         assertEquals("@book{M12,\n"
                 + "title = {\\r{a}\\\"{a}\\\"{o}{\\r{A}}{\\\"{A}}{\\\"{O}}},\n"
                 + "author = {Masa},\n"
@@ -76,7 +76,7 @@ public class ReferenceTest {
 
     @Test
     public void bibtexWithAcronyms() {
-        ref.title = "AB cde FGhi jk Lmno pqRstu VW XYZ";
+        ref.setTitle("AB cde FGhi jk Lmno pqRstu VW XYZ");
         assertEquals("@book{M12,\n"
                 + "title = {{A}{B} cde {F}{G}hi jk Lmno pqRstu {V}{W} {X}{Y}{Z}},\n"
                 + "author = {Masa},\n"
