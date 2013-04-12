@@ -10,3 +10,6 @@ addSbtPlugin("play" % "sbt-plugin" % "2.1.0")
 resolvers += "Templemore repository" at "http://templemore.co.uk/repo"
 
 addSbtPlugin("templemore" % "xsbt-cucumber-plugin" % "0.6.2")
+
+// JaCoCo. (2.0.0 ei toimi play 2.1:n kanssa!)
+addSbtPlugin("de.johoop" % "jacoco4sbt" % "1.2.4")
