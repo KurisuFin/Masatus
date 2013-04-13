@@ -1,6 +1,5 @@
 package db;
 
-
 import db.Database;
 import java.util.List;
 import models.Reference;
@@ -85,5 +84,33 @@ public class DatabaseTest {
         List<Reference> all = Database.findAll();
         assertEquals(1, all.size());
         assertEquals(ref2.getId(), all.get(0).getId());
+    }
+
+    @Test
+    public void findReturnsCorrectReference() {
+        Database.save(ref1);
+        Reference r = Database.find(ref1.getId());
+        assertNotNull(r);
+        assertEquals(r.getId(), ref1.getId());
+    }
+
+    @Test
+    public void findReturnsNullIfNotFound() {
+        Database.save(ref1);
+        assertNull(Database.find(ref1.getId() + 1));
+    }
+
+    @Test
+    public void deleteReturnsFalseWhenNotFound() {
+        Database.save(ref1);
+        assertFalse(Database.delete(ref1.getId() + 1));
+    }
+
+    @Test
+    public void deleteDoesNothingWhenNotFound() {
+        Database.save(ref1);
+        Database.delete(ref1.getId() + 1);
+        List<Reference> all = Database.findAll();
+        assertEquals(1, all.size());
     }
 }

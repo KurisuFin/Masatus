@@ -1,6 +1,5 @@
 package controllers;
 
-
 import db.Database;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +86,7 @@ public class AddReferenceTest {
     public void failsIfTitleMissing() {
         input.put("title", "");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Kenttä on pakollinen");
         assertThat(Database.findAll().isEmpty());
     }
@@ -96,7 +95,7 @@ public class AddReferenceTest {
     public void failsIfAuthorMissing() {
         input.put("author", "");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Kenttä on pakollinen");
         assertThat(Database.findAll().isEmpty());
     }
@@ -105,7 +104,7 @@ public class AddReferenceTest {
     public void failsIfPublisherMissing() {
         input.put("publisher", "");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Kenttä on pakollinen");
         assertThat(Database.findAll().isEmpty());
     }
@@ -114,7 +113,7 @@ public class AddReferenceTest {
     public void failsIfYearMissing() {
         input.put("year", "");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Kenttä on pakollinen");
         assertThat(Database.findAll().isEmpty());
     }
@@ -123,7 +122,7 @@ public class AddReferenceTest {
     public void failsIfYearNotNumeric() {
         input.put("year", "2000a");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Virheellinen arvo");
         assertThat(Database.findAll().isEmpty());
     }
@@ -132,7 +131,7 @@ public class AddReferenceTest {
     public void failsIfYearTooSmall() {
         input.put("year", "0");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Arvon tulee olla vähintään");
         assertThat(Database.findAll().isEmpty());
     }
@@ -141,7 +140,7 @@ public class AddReferenceTest {
     public void failsIfYearTooBig() {
         input.put("year", "2100");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Arvo saa olla enintään");
         assertThat(Database.findAll().isEmpty());
     }
@@ -150,7 +149,7 @@ public class AddReferenceTest {
     public void failsIfCiteKeyMissing() {
         input.put("citeKey", "");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Kenttä on pakollinen");
         assertThat(Database.findAll().isEmpty());
     }
@@ -159,7 +158,7 @@ public class AddReferenceTest {
     public void failsIfCiteKeyStartsWithNumber() {
         input.put("citeKey", "0abc");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Voi sisältää vain merkkejä ");
         assertThat(Database.findAll().isEmpty());
     }
@@ -168,7 +167,7 @@ public class AddReferenceTest {
     public void failsIfCiteKeyHasSpaces() {
         input.put("citeKey", "a bc");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Voi sisältää vain merkkejä ");
         assertThat(Database.findAll().isEmpty());
     }
@@ -177,7 +176,7 @@ public class AddReferenceTest {
     public void failsIfCiteKeyHasIllegalCharacters() {
         input.put("citeKey", "a.bc");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Voi sisältää vain merkkejä ");
         assertThat(Database.findAll().isEmpty());
     }
@@ -186,7 +185,7 @@ public class AddReferenceTest {
     public void failsIfVolumeNotNumeric() {
         input.put("volume", "1000.0");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Virheellinen arvo");
         assertThat(Database.findAll().isEmpty());
     }
@@ -195,7 +194,7 @@ public class AddReferenceTest {
     public void failsIfVolumeTooSmall() {
         input.put("year", "0");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Arvon tulee olla vähintään");
         assertThat(Database.findAll().isEmpty());
     }
@@ -204,7 +203,7 @@ public class AddReferenceTest {
     public void failsIfVolumeTooBig() {
         input.put("year", "10000");
         Result result = postTestInput(input);
-        assertThat(status(postTestInput(input))).isEqualTo(BAD_REQUEST);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Arvo saa olla enintään");
         assertThat(Database.findAll().isEmpty());
     }

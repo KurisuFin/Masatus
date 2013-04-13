@@ -15,14 +15,21 @@ public class ViewReference extends Controller {
 
     /**
      * Generoi sivun sisällön.
+     *
      * @return Sivun sisältö.
      */
     public static Result show() {
-        int id = Integer.parseInt(Controller.request().getQueryString("id"));
+        int id;
+        try {
+            id = Integer.parseInt(Controller.request().getQueryString("id"));
+        } catch (NumberFormatException e) {
+            return badRequest("Virheellinen viitetunnus.");
+        }
+
         Reference ref = Database.find(id);
-        if (ref == null)
+        if (ref == null) {
             return badRequest("Viitettä ei löytynyt.");
+        }
         return ok(view.render(ref));
     }
-
 }
