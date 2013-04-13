@@ -1,3 +1,5 @@
+package misc;
+
 import org.junit.*;
 
 import play.mvc.*;
