@@ -2,6 +2,7 @@ package controllers;
 
 import db.Database;
 import models.Reference;
+import models.ReferenceType;
 import play.data.Form;
 import static play.data.Form.*;
 import play.data.validation.Constraints.Max;
@@ -54,8 +55,9 @@ public class AddReference extends Controller {
         } else {
             UserInput input = form.get();
 
-            Reference ref = new Reference(input.citeKey, input.title,
-                    input.author, input.publisher, input.year);
+            Reference ref = new Reference(ReferenceType.Book, input.citeKey,
+                    input.title, input.author, input.year);
+            ref.setPublisher(input.publisher);
             ref.setAddress(input.address);
             ref.setVolume(input.volume);
             ref.setEdition(input.edition);

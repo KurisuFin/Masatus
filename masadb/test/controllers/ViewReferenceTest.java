@@ -10,6 +10,7 @@ import play.test.FakeApplication;
 import play.test.FakeRequest;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
+import static models.ReferenceType.*;
 
 public class ViewReferenceTest {
 
@@ -21,18 +22,26 @@ public class ViewReferenceTest {
         fa = fakeApplication(inMemoryDatabase());
         start(fa);
 
-        ref1 = new Reference("M12", "The Title", "Masa",
-                "Masa Publishing", 2012);
-        ref1.setAddress("Masala");
-        ref1.setEdition("Second");
+        ref1 = new Reference(Book, "M12", "The Title", "Masa", 2012);
+        ref1.setMonth("jan");
         ref1.setVolume(7);
+        ref1.setNumber(null);
+        ref1.setEdition("Second");
+        ref1.setPages(null);
+        ref1.setPublisher("Masa Publishing");
+        ref1.setAddress("Masala");
+        ref1.setOrganization("Masala University");
         Database.save(ref1);
 
-        ref2 = new Reference("M13", "The Title II", "Masa II",
-                "Masa Publishing", 2013);
-        ref2.setAddress("Masala");
+        ref2 = new Reference(Article, "M13", "The Title II", "Masa II", 2013);
+        ref2.setMonth("feb");
+        ref2.setVolume(null);
+        ref2.setNumber(13);
         ref2.setEdition(null);
-        ref2.setVolume(7);
+        ref2.setPages("123--321");
+        ref2.setPublisher("Masa Publishing");
+        ref2.setAddress("Masala");
+        ref2.setOrganization("Masala University");
         Database.save(ref2);
     }
 

@@ -7,6 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.fest.assertions.Assertions.*;
+import static models.ReferenceType.*;
 
 public class ReferenceTest {
 
@@ -14,24 +15,29 @@ public class ReferenceTest {
 
     @Before
     public void setUp() {
-        ref = new Reference("M12", "The Title", "Masa",
-                "Masa Publishing", 2012);
+        ref = new Reference(Book, "M12", "The Title", "Masa", 2012);
     }
 
     @Test
     public void constructorSetsRequiredValues() {
+        assertEquals(Book, ref.getType());
         assertEquals("M12", ref.getCiteKey());
         assertEquals("The Title", ref.getTitle());
         assertEquals("Masa", ref.getAuthor());
-        assertEquals("Masa Publishing", ref.getPublisher());
         assertEquals(2012, (int) ref.getYear());
     }
 
     @Test
     public void optionalValuesAreNull() {
-        assertNull(ref.getAddress());
-        assertNull(ref.getEdition());
+        assertNull(ref.getMonth());
         assertNull(ref.getVolume());
+        assertNull(ref.getNumber());
+        assertNull(ref.getEdition());
+        assertNull(ref.getPages());
+        assertNull(ref.getBookTitle());
+        assertNull(ref.getPublisher());
+        assertNull(ref.getAddress());
+        assertNull(ref.getOrganization());
     }
 
     @Test
@@ -39,7 +45,6 @@ public class ReferenceTest {
         assertEquals("@book{M12,\n"
                 + "title = {The Title},\n"
                 + "author = {Masa},\n"
-                + "publisher = {Masa Publishing},\n"
                 + "year = {2012},\n"
                 + "}",
                 ref.generateBibtexEntry());
@@ -53,7 +58,6 @@ public class ReferenceTest {
         assertEquals("@book{M12,\n"
                 + "title = {The Title},\n"
                 + "author = {Masa},\n"
-                + "publisher = {Masa Publishing},\n"
                 + "year = {2012},\n"
                 + "address = {Masala},\n"
                 + "edition = {Second},\n"
@@ -68,7 +72,6 @@ public class ReferenceTest {
         assertEquals("@book{M12,\n"
                 + "title = {\\r{a}\\\"{a}\\\"{o}{\\r{A}}{\\\"{A}}{\\\"{O}}},\n"
                 + "author = {Masa},\n"
-                + "publisher = {Masa Publishing},\n"
                 + "year = {2012},\n"
                 + "}",
                 ref.generateBibtexEntry());
@@ -80,7 +83,6 @@ public class ReferenceTest {
         assertEquals("@book{M12,\n"
                 + "title = {{A}{B} cde {F}{G}hi jk Lmno pqRstu {V}{W} {X}{Y}{Z}},\n"
                 + "author = {Masa},\n"
-                + "publisher = {Masa Publishing},\n"
                 + "year = {2012},\n"
                 + "}",
                 ref.generateBibtexEntry());

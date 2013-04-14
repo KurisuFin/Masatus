@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import play.test.FakeApplication;
 import static play.test.Helpers.*;
+import static models.ReferenceType.*;
 
 public class DatabaseTest {
 
@@ -25,17 +26,25 @@ public class DatabaseTest {
         fa = fakeApplication(inMemoryDatabase());
         start(fa);
 
-        ref1 = new Reference("M12", "The Title", "Masa",
-                "Masa Publishing", 2012);
-        ref1.setAddress("Masala");
-        ref1.setEdition("Second");
+        ref1 = new Reference(Book, "M12", "The Title", "Masa", 2012);
+        ref1.setMonth("jan");
         ref1.setVolume(7);
+        ref1.setNumber(null);
+        ref1.setEdition("Second");
+        ref1.setPages(null);
+        ref1.setPublisher("Masa Publishing");
+        ref1.setAddress("Masala");
+        ref1.setOrganization("Masala University");
 
-        ref2 = new Reference("M13", "The Title II", "Masa II",
-                "Masa Publishing", 2013);
-        ref2.setAddress("Masala");
+        ref2 = new Reference(Article, "M13", "The Title II", "Masa II", 2013);
+        ref2.setMonth("feb");
+        ref2.setVolume(null);
+        ref2.setNumber(13);
         ref2.setEdition(null);
-        ref2.setVolume(7);
+        ref2.setPages("123--321");
+        ref2.setPublisher("Masa Publishing");
+        ref2.setAddress("Masala");
+        ref2.setOrganization("Masala University");
     }
 
     @After
@@ -58,14 +67,20 @@ public class DatabaseTest {
 
         List<Reference> all = Database.findAll();
         assertEquals(1, all.size());
+        assertEquals(ref1.getType(), all.get(0).getType());
         assertEquals(ref1.getCiteKey(), all.get(0).getCiteKey());
         assertEquals(ref1.getTitle(), all.get(0).getTitle());
         assertEquals(ref1.getAuthor(), all.get(0).getAuthor());
-        assertEquals(ref1.getPublisher(), all.get(0).getPublisher());
         assertEquals(ref1.getYear(), all.get(0).getYear());
-        assertEquals(ref1.getAddress(), all.get(0).getAddress());
-        assertEquals(ref1.getEdition(), all.get(0).getEdition());
+        assertEquals(ref1.getMonth(), all.get(0).getMonth());
         assertEquals(ref1.getVolume(), all.get(0).getVolume());
+        assertEquals(ref1.getNumber(), all.get(0).getNumber());
+        assertEquals(ref1.getEdition(), all.get(0).getEdition());
+        assertEquals(ref1.getPages(), all.get(0).getPages());
+        assertEquals(ref1.getBookTitle(), all.get(0).getBookTitle());
+        assertEquals(ref1.getPublisher(), all.get(0).getPublisher());
+        assertEquals(ref1.getAddress(), all.get(0).getAddress());
+        assertEquals(ref1.getOrganization(), all.get(0).getOrganization());
     }
 
     @Test

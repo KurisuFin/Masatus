@@ -5,7 +5,7 @@ import javax.persistence.*;
 import play.db.ebean.*;
 
 /**
- * Tietue kirjan (tai muun viitteen) tietojen tallennukseen ORM:n avulla.
+ * Tietue viitteen tietojen tallennukseen ORM:n avulla.
  */
 @Entity
 public class Reference extends Model {
@@ -17,7 +17,14 @@ public class Reference extends Model {
     private Integer id;
 
     /**
-     * Latex-dokumentissa käytettävä "sitaattiavain" (citation key).
+     * Yksikäsitteinen automaattisesti generoitu tunniste. Pakollinen
+     * kenttä.
+     */
+    @NotNull
+    private ReferenceType type;
+
+    /**
+     * Latex-dokumentissa käytettävä viiteavain (citation key).
      * Pakollinen kenttä.
      * TODO: Pitäisi olla yksikäsitteinen, ja olisi hyvä generoida
      * automaattisesti käyttäjän puolesta.
@@ -26,20 +33,16 @@ public class Reference extends Model {
     private String citeKey;
 
     /**
-     * Julkaisijan osoite. Valinnainen kenttä.
+     * Nimi. Pakollinen kenttä.
      */
-    private String address;
+    @NotNull
+    private String title;
 
     /**
      * Tekijän tai tekijöiden nimet. Pakollinen kenttä.
      */
     @NotNull
-    public String author;
-
-    /**
-     * Kirjan painos. Valinnainen kenttä.
-     */
-    private String edition;
+    private String author;
 
     /**
      * Julkaisuvuosi. Pakollinen kenttä.
@@ -48,36 +51,72 @@ public class Reference extends Model {
     private Integer year;
 
     /**
-     * Nimi. Pakollinen kenttä.
+     * Julkaisukuukausi.
      */
-    @NotNull
-    private String title;
+    private String month;
 
     /**
-     * Julkaisija. Valinnainen kenttä.
-     */
-    @NotNull
-    private String publisher;
-
-    /**
-     * Kirjan osa. Valinnainen kenttä.
+     * Kirjan osa.
      */
     private Integer volume;
 
     /**
+     * Tiedejulkaisun, lehden tms numero.
+     */
+    private Integer number;
+
+    /**
+     * Kirjan painos.
+     */
+    private String edition;
+
+    /**
+     * Sivunumerot muodossa "123--234".
+     */
+    private String pages;
+
+    /**
+     * Kirjan tai muun julkaisun nimi viitteille, jotka ovat osa
+     * isompaa julkaisua.
+     */
+    private String bookTitle;
+
+    /**
+     * Julkaisija.
+     */
+    private String publisher;
+
+    /**
+     * Julkaisijan osoite.
+     */
+    private String address;
+
+    /**
+     * Organisaatio (esim. konferenssin järjestäjä).
+     */
+    private String organization;
+
+    /**
+     * Default-konstruktori.
+     */
+    public Reference() {
+    }
+
+    /**
      * Luo uuden viite-objektin pakollisista tiedoista.
-     * @param citeKey Sitaattiavain.
+     *
+     * @param type Viitteen tyyppi.
+     * @param citeKey Viiteavain.
      * @param title Nimi.
      * @param author Tekijä(t).
-     * @param publisher Julkaisija.
      * @param year Vuosi.
      */
-    public Reference(String citeKey, String title, String author, String publisher,
-            int year) {
+    public Reference(ReferenceType type, String citeKey, String title,
+            String author, int year) {
+        setType(type);
         setCiteKey(citeKey);
         setTitle(title);
         setAuthor(author);
-        setPublisher(publisher);
         setYear(year);
     }
 
@@ -177,6 +216,14 @@ public class Reference extends Model {
         return false;
     }
 
+    public ReferenceType getType() {
+        return type;
+    }
+
+    public void setType(ReferenceType type) {
+        this.type = type;
+    }
+
     public String getCiteKey() {
         return citeKey;
     }
@@ -201,12 +248,52 @@ public class Reference extends Model {
         this.author = author;
     }
 
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
+    }
+
     public String getEdition() {
         return edition;
     }
 
     public void setEdition(String edition) {
         this.edition = edition;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getPages() {
+        return pages;
+    }
+
+    public void setPages(String bookTitle) {
+        this.pages = pages;
     }
 
     public String getPublisher() {
@@ -225,6 +312,14 @@ public class Reference extends Model {
         this.title = title;
     }
 
+    public Integer getVolume() {
+        return volume;
+    }
+
+    public void setVolume(Integer volume) {
+        this.volume = volume;
+    }
+
     public Integer getYear() {
         return year;
     }
@@ -233,11 +328,4 @@ public class Reference extends Model {
         this.year = year;
     }
 
-    public Integer getVolume() {
-        return volume;
-    }
-
-    public void setVolume(Integer volume) {
-        this.volume = volume;
-    }
 }

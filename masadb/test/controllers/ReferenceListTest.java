@@ -9,6 +9,7 @@ import play.mvc.Result;
 import play.test.FakeApplication;
 import static play.test.Helpers.*;
 import static org.fest.assertions.Assertions.*;
+import static models.ReferenceType.*;
 
 public class ReferenceListTest {
 
@@ -40,8 +41,8 @@ public class ReferenceListTest {
 
     @Test
     public void listContainsDatabaseEntries() {
-        Database.save(new Reference("a", "title 1", "author 1", "publ 1", 1001));
-        Database.save(new Reference("b", "title 2", "author 2", "publ 2", 1002));
+        Database.save(new Reference(Book, "a", "title 1", "author 1", 1001));
+        Database.save(new Reference(Book, "b", "title 2", "author 2", 1002));
 
         Result result = callAction(controllers.routes.ref.ReferenceList.show(), fakeRequest());
 
@@ -56,8 +57,8 @@ public class ReferenceListTest {
 
     @Test
     public void listContainsLinks() {
-        Reference ref1 = new Reference("a", "title 1", "author 1", "publ 1", 1001);
-        Reference ref2 = new Reference("b", "title 2", "author 2", "publ 2", 1002);
+        Reference ref1 = new Reference(Book, "a", "title 1", "author 1", 1001);
+        Reference ref2 = new Reference(Book, "b", "title 2", "author 2", 1002);
         Database.save(ref1);
         Database.save(ref2);
 
