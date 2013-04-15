@@ -52,16 +52,28 @@ public class ReferenceTest {
 
     @Test
     public void bibtexWithOptionalTags() {
-        ref.setAddress("Masala");
-        ref.setEdition("Second");
+        ref.setMonth("jan");
         ref.setVolume(7);
+        ref.setNumber(8);
+        ref.setEdition("Second");
+        ref.setPages("123--321");
+        ref.setBookTitle("Book Title");
+        ref.setPublisher("Masa Publishing");
+        ref.setAddress("Masala");
+        ref.setOrganization("Masala University");
         assertEquals("@book{M12,\n"
                 + "title = {The Title},\n"
                 + "author = {Masa},\n"
                 + "year = {2012},\n"
-                + "address = {Masala},\n"
-                + "edition = {Second},\n"
+                + "month = {jan},\n"
                 + "volume = {7},\n"
+                + "number = {8},\n"
+                + "edition = {Second},\n"
+                + "pages = {123--321},\n"
+                + "booktitle = {Book Title},\n"
+                + "publisher = {Masa Publishing},\n"
+                + "address = {Masala},\n"
+                + "organization = {Masala University},\n"
                 + "}",
                 ref.generateBibtexEntry());
     }
@@ -82,6 +94,17 @@ public class ReferenceTest {
         ref.setTitle("AB cde FGhi jk Lmno pqRstu VW XYZ");
         assertEquals("@book{M12,\n"
                 + "title = {{A}{B} cde {F}{G}hi jk Lmno pqRstu {V}{W} {X}{Y}{Z}},\n"
+                + "author = {Masa},\n"
+                + "year = {2012},\n"
+                + "}",
+                ref.generateBibtexEntry());
+    }
+
+    @Test
+    public void bibtexForArticle() {
+        ref.setType(Article);
+        assertEquals("@article{M12,\n"
+                + "title = {The Title},\n"
                 + "author = {Masa},\n"
                 + "year = {2012},\n"
                 + "}",

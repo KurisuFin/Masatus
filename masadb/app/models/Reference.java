@@ -136,15 +136,20 @@ public class Reference extends Model {
     public String generateBibtexEntry() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("@book{" + citeKey + ",\n");
+        sb.append("@" + type.toString().toLowerCase() + "{" + citeKey + ",\n");
 
         generateTag("title", title, sb);
         generateTag("author", author, sb);
-        generateTag("publisher", publisher, sb);
         generateTag("year", year != null ? Integer.toString(year) : null, sb);
-        generateTag("address", address, sb);
-        generateTag("edition", edition, sb);
+        generateTag("month", month, sb);
         generateTag("volume", volume != null ? Integer.toString(volume) : null, sb);
+        generateTag("number", number != null ? Integer.toString(number) : null, sb);
+        generateTag("edition", edition, sb);
+        generateTag("pages", pages, sb);
+        generateTag("booktitle", bookTitle, sb);
+        generateTag("publisher", publisher, sb);
+        generateTag("address", address, sb);
+        generateTag("organization", organization, sb);
 
         sb.append("}");
 
