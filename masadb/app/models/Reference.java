@@ -292,7 +292,7 @@ public class Reference extends Model {
         return pages;
     }
 
-    public void setPages(String bookTitle) {
+    public void setPages(String pages) {
         this.pages = pages;
     }
 

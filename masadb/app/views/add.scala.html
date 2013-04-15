@@ -8,6 +8,17 @@
 
     @form(action = routes.AddReference.save, args = 'id -> "myform") {
 
+        @select(
+            field = myForm("type"),
+            models.ReferenceType.values().toList.map(t => (t.toString, Messages(t.getDescription()))),
+            '_label -> "Tyyppi: ", '_showConstraints -> false
+        )
+
+        @inputText(
+            field = myForm("citeKey"),
+            args = '_label -> "Viiteavain: ", '_showConstraints -> false
+        )
+
         @inputText(
             field = myForm("title"),
             args = '_label -> "Nimi: ", '_showConstraints -> false
@@ -19,33 +30,53 @@
         )
 
         @inputText(
-            field = myForm("publisher"),
-            args = '_label -> "Julkaisija: ", '_showConstraints -> false
-        )
-
-        @inputText(
             field = myForm("year"),
             args = '_label -> "Vuosi: ", '_showConstraints -> false
         )
 
         @inputText(
-            field = myForm("citeKey"),
-            args = '_label -> "Sitaattiavain: ", 'size -> 3, '_showConstraints -> false
-        )
-
-        @inputText(
-            field = myForm("address"),
-            args = '_label -> "Julkaisijan osoite: ", 'size -> 3, '_showConstraints -> false
-        )
-
-        @inputText(
-            field = myForm("edition"),
-            args = '_label -> "Painos: ", 'size -> 3, '_showConstraints -> false
+            field = myForm("month"),
+            args = '_label -> "Kuukausi: ", '_showConstraints -> false
         )
 
         @inputText(
             field = myForm("volume"),
-            args = '_label -> "Osa: ", 'size -> 3, '_showConstraints -> false
+            args = '_label -> "Osa: ", '_showConstraints -> false
+        )
+
+        @inputText(
+            field = myForm("number"),
+            args = '_label -> "Numero: ", '_showConstraints -> false
+        )
+
+        @inputText(
+            field = myForm("edition"),
+            args = '_label -> "Painos: ", '_showConstraints -> false
+        )
+
+        @inputText(
+            field = myForm("pages"),
+            args = '_label -> "Sivut: ", '_showConstraints -> false
+        )
+
+        @inputText(
+            field = myForm("bookTitle"),
+            args = '_label -> "Kokoelman nimi: ", '_showConstraints -> false
+        )
+
+        @inputText(
+            field = myForm("publisher"),
+            args = '_label -> "Julkaisija: ", '_showConstraints -> false
+        )
+
+        @inputText(
+            field = myForm("address"),
+            args = '_label -> "Julkaisijan osoite: ", '_showConstraints -> false
+        )
+
+        @inputText(
+            field = myForm("organization"),
+            args = '_label -> "Organisaatio: ", '_showConstraints -> false
         )
 
         <p class="buttons">

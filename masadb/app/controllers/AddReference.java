@@ -21,15 +21,20 @@ public class AddReference extends Controller {
      * Tietue lomakkeeseen syötetyille tiedoille.
      */
     public static class UserInput {
-
+        @Required public ReferenceType type;
+        @Required public String citeKey;
         @Required public String title;
         @Required public String author;
-        @Required public String publisher;
         @Required @Min(1) @Max(2099) public Integer year;
-        @Required public String citeKey;
-        public String address;
-        public String edition;
+        public String month;
         @Min(1) @Max(9999) public Integer volume;
+        @Min(1) @Max(9999) public Integer number;
+        public String edition;
+        public String pages;
+        public String bookTitle;
+        public String publisher;
+        public String address;
+        public String organization;
     }
 
     /**
@@ -55,12 +60,17 @@ public class AddReference extends Controller {
         } else {
             UserInput input = form.get();
 
-            Reference ref = new Reference(ReferenceType.Book, input.citeKey,
+            Reference ref = new Reference(input.type, input.citeKey,
                     input.title, input.author, input.year);
+            ref.setMonth(input.month);
+            ref.setVolume(input.volume);
+            ref.setNumber(input.number);
+            ref.setEdition(input.edition);
+            ref.setPages(input.pages);
+            ref.setBookTitle(input.bookTitle);
             ref.setPublisher(input.publisher);
             ref.setAddress(input.address);
-            ref.setVolume(input.volume);
-            ref.setEdition(input.edition);
+            ref.setOrganization(input.organization);
 
             Database.save(ref);
 
@@ -82,6 +92,18 @@ public class AddReference extends Controller {
         if (!form.get().citeKey.matches("[a-zA-Z][a-zA-Z0-9_-]*")) {
             form.reject("citeKey", "Voi sisältää vain merkkejä"
                     + " \"a-z\", \"A-Z\", \"0-9\", \"-\", ja \"_\".");
+            return true;
+        }
+
+        if (!form.get().month.isEmpty() && !form.get().month.matches(
+                "(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)")) {
+            form.reject("month", "Anna kuukausi muodossa \"jan\", \"feb\", jne.");
+            return true;
+        }
+
+        if (!form.get().pages.isEmpty() && !form.get().pages.matches(
+                "[1-9][0-9]*--[1-9][0-9]*")) {
+            form.reject("month", "Anna sivut muodossa 123--321.");
             return true;
         }
 

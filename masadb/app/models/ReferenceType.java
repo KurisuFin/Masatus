@@ -19,8 +19,7 @@ public enum ReferenceType {
     TechReport,
     Unpublished;
 
-    @Override
-    public String toString() {
+    public String getDescription() {
         switch (this) {
             case Article:
                 return "Artikkeli";
