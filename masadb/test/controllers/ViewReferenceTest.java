@@ -15,7 +15,7 @@ import static models.ReferenceType.*;
 public class ViewReferenceTest {
 
     FakeApplication fa;
-    Reference ref1, ref2;
+    Reference ref1;
 
     @Before
     public void setUp() {
@@ -25,24 +25,14 @@ public class ViewReferenceTest {
         ref1 = new Reference(Book, "M12", "The Title", "Masa", 2012);
         ref1.setMonth("jan");
         ref1.setVolume(7);
-        ref1.setNumber(null);
+        ref1.setNumber(8);
         ref1.setEdition("Second");
-        ref1.setPages(null);
+        ref1.setPages("123--321");
+        ref1.setBookTitle("Book Title");
         ref1.setPublisher("Masa Publishing");
         ref1.setAddress("Masala");
         ref1.setOrganization("Masala University");
         Database.save(ref1);
-
-        ref2 = new Reference(Article, "M13", "The Title II", "Masa II", 2013);
-        ref2.setMonth("feb");
-        ref2.setVolume(null);
-        ref2.setNumber(13);
-        ref2.setEdition(null);
-        ref2.setPages("123--321");
-        ref2.setPublisher("Masa Publishing");
-        ref2.setAddress("Masala");
-        ref2.setOrganization("Masala University");
-        Database.save(ref2);
     }
 
     @After
@@ -83,14 +73,36 @@ public class ViewReferenceTest {
     @Test
     public void pageHasCorrectData() {
         Result result = request(Integer.toString(ref1.getId()));
+        assertThat(contentAsString(result)).contains(td("type", ref1.getType().getDescription()));
+        assertThat(contentAsString(result)).contains(td("citeKey", ref1.getCiteKey()));
         assertThat(contentAsString(result)).contains(td("title", ref1.getTitle()));
         assertThat(contentAsString(result)).contains(td("author", ref1.getAuthor()));
-        assertThat(contentAsString(result)).contains(td("publisher", ref1.getPublisher()));
         assertThat(contentAsString(result)).contains(td("year", Integer.toString(ref1.getYear())));
-        assertThat(contentAsString(result)).contains(td("citeKey", ref1.getCiteKey()));
-        assertThat(contentAsString(result)).contains(td("address", ref1.getAddress()));
-        assertThat(contentAsString(result)).contains(td("edition", ref1.getEdition()));
+        assertThat(contentAsString(result)).contains(td("month", ref1.getMonth()));
         assertThat(contentAsString(result)).contains(td("volume", Integer.toString(ref1.getVolume())));
+        assertThat(contentAsString(result)).contains(td("number", Integer.toString(ref1.getNumber())));
+        assertThat(contentAsString(result)).contains(td("edition", ref1.getEdition()));
+        assertThat(contentAsString(result)).contains(td("pages", ref1.getPages()));
+        assertThat(contentAsString(result)).contains(td("bookTitle", ref1.getBookTitle()));
+        assertThat(contentAsString(result)).contains(td("publisher", ref1.getPublisher()));
+        assertThat(contentAsString(result)).contains(td("address", ref1.getAddress()));
+        assertThat(contentAsString(result)).contains(td("organization", ref1.getOrganization()));
+    }
+
+    @Test
+    public void emptyAttributesNotDisplayed() {
+        Reference ref2 = new Reference(Book, "a", "b", "c", 123);
+        Database.save(ref2);
+        Result result = request(Integer.toString(ref2.getId()));
+        assertThat(contentAsString(result)).doesNotContain(td("month", ""));
+        assertThat(contentAsString(result)).doesNotContain(td("volume", ""));
+        assertThat(contentAsString(result)).doesNotContain(td("number", ""));
+        assertThat(contentAsString(result)).doesNotContain(td("edition", ""));
+        assertThat(contentAsString(result)).doesNotContain(td("pages", ""));
+        assertThat(contentAsString(result)).doesNotContain(td("bookTitle", ""));
+        assertThat(contentAsString(result)).doesNotContain(td("publisher", ""));
+        assertThat(contentAsString(result)).doesNotContain(td("address", ""));
+        assertThat(contentAsString(result)).doesNotContain(td("organization", ""));
     }
 
     @Test

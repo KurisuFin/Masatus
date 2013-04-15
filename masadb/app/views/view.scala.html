@@ -5,6 +5,14 @@
 <h2>Tiedot:</h2>
 <table>
     <tr>
+        <td>Tyyppi:</td>
+        <td id="type">@ref.getType().getDescription()</td>
+    </tr>
+    <tr>
+        <td>Viiteavain:</td>
+        <td id="citeKey">@ref.getCiteKey()</td>
+    </tr>
+    <tr>
         <td>Nimi:</td>
         <td id="title">@ref.getTitle()</td>
     </tr>
@@ -13,29 +21,63 @@
         <td id="author">@ref.getAuthor()</td>
     </tr>
     <tr>
-        <td>Julkaisija:</td>
-        <td id="publisher">@ref.getPublisher()</td>
-    </tr>
-    <tr>
         <td>Vuosi:</td>
         <td id="year">@ref.getYear()</td>
     </tr>
-    <tr>
-        <td>Sitaattiavain:</td>
-        <td id="citeKey">@ref.getCiteKey()</td>
-    </tr>
-    <tr>
-        <td>Julkaisijan osoite:</td>
-        <td id="address">@ref.getAddress()</td>
-    </tr>
-    <tr>
-        <td>Painos:</td>
-        <td id="edition">@ref.getEdition()</td>
-    </tr>
-    <tr>
-        <td>Osa:</td>
-        <td id="volume">@ref.getVolume()</td>
-    </tr>
+    @if(ref.getMonth() != null && !ref.getMonth().isEmpty) {
+        <tr>
+            <td>Kuukausi:</td>
+            <td id="month">@ref.getMonth()</td>
+        </tr>
+    }
+    @if(ref.getVolume() != null) {
+        <tr>
+            <td>Osa:</td>
+            <td id="volume">@ref.getVolume()</td>
+        </tr>
+    }
+    @if(ref.getNumber() != null) {
+        <tr>
+            <td>Numero:</td>
+            <td id="number">@ref.getNumber()</td>
+        </tr>
+    }
+    @if(ref.getEdition() != null && !ref.getEdition().isEmpty) {
+        <tr>
+            <td>Painos:</td>
+            <td id="edition">@ref.getEdition()</td>
+        </tr>
+    }
+    @if(ref.getPages() != null && !ref.getPages().isEmpty) {
+        <tr>
+            <td>Sivut:</td>
+            <td id="pages">@ref.getPages()</td>
+        </tr>
+    }
+    @if(ref.getBookTitle() != null && !ref.getBookTitle().isEmpty) {
+        <tr>
+            <td>Kokoelman nimi:</td>
+            <td id="bookTitle">@ref.getBookTitle()</td>
+        </tr>
+    }
+    @if(ref.getPublisher() != null && !ref.getPublisher().isEmpty) {
+        <tr>
+            <td>Julkaisija:</td>
+            <td id="publisher">@ref.getPublisher()</td>
+        </tr>
+    }
+    @if(ref.getAddress() != null && !ref.getAddress().isEmpty) {
+        <tr>
+            <td>Julkaisijan osoite:</td>
+            <td id="address">@ref.getAddress()</td>
+        </tr>
+    }
+    @if(ref.getOrganization() != null && !ref.getOrganization().isEmpty) {
+        <tr>
+            <td>Organisaatio:</td>
+            <td id="organization">@ref.getOrganization()</td>
+        </tr>
+    }
 </table>
 
 <h2>BibTeX:</h2>

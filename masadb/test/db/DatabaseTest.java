@@ -32,6 +32,7 @@ public class DatabaseTest {
         ref1.setNumber(null);
         ref1.setEdition("Second");
         ref1.setPages(null);
+        ref1.setBookTitle(null);
         ref1.setPublisher("Masa Publishing");
         ref1.setAddress("Masala");
         ref1.setOrganization("Masala University");
@@ -42,6 +43,7 @@ public class DatabaseTest {
         ref2.setNumber(13);
         ref2.setEdition(null);
         ref2.setPages("123--321");
+        ref2.setBookTitle("Book Title");
         ref2.setPublisher("Masa Publishing");
         ref2.setAddress("Masala");
         ref2.setOrganization("Masala University");
