@@ -23,7 +23,7 @@ public class AddReference extends Controller {
      */
     public static class UserInput {
         @Required public ReferenceType type;
-        @Required public String citeKey;
+        public String citeKey;
         @Required public String title;
         @Required public String author;
         @Required @Min(1) @Max(2099) public Integer year;
@@ -87,12 +87,6 @@ public class AddReference extends Controller {
      */
     private static boolean formHasErrors(Form<UserInput> form) {
         if (form.hasErrors()) {
-            return true;
-        }
-
-        if (!form.get().citeKey.matches("[a-zA-Z][a-zA-Z0-9_-]*")) {
-            form.reject("citeKey", "Voi sisältää vain merkkejä"
-                    + " \"a-z\", \"A-Z\", \"0-9\", \"-\", ja \"_\".");
             return true;
         }
 
