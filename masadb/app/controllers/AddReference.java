@@ -11,6 +11,7 @@ import play.data.validation.Constraints.Required;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.add;
+import java.util.ArrayList;
 
 /**
  * Sovelluslogiikka viittausten lisäyssivua varten.
@@ -60,7 +61,7 @@ public class AddReference extends Controller {
         } else {
             UserInput input = form.get();
 
-            Reference ref = new Reference(input.type, input.citeKey,
+            Reference ref = new Reference(input.type, generoiViite(input.author, input.year),
                     input.title, input.author, input.year);
             ref.setMonth(input.month);
             ref.setVolume(input.volume);
@@ -109,4 +110,72 @@ public class AddReference extends Controller {
 
         return false;
     }
+
+    /**
+     * Generoi viiteavaimen sukunimien ja vuosiluvun perusteella.
+     *
+     * @return viiteavain.
+     */
+    public static String generoiViite(String authorString, int year)
+    {
+        String viite = "";
+        String separator = " and ";
+        ArrayList<String> authorList = new ArrayList<String>();
+
+        // Erotellaan nimet listaan, jos enemman kuin yksi tekija.
+        while (authorString.contains(separator)) {
+            authorList.add(authorString.substring(0, authorString.indexOf(separator)));
+            authorString = authorString.substring(authorString.indexOf(separator)+separator.length());
+        }
+
+        // Lisataan viimeinen/ainoa tekija listaan.
+        authorList.add(authorString);
+
+        // Lisataan viitteeseen jokaisen sukunimen ensimmainen kirjain.
+        for (int i = 0; i < authorList.size(); i++) {
+            String nimi = authorList.get(i);
+
+            // Sukunimi, Etunimi ("Kekkonen, Urho Kaleva")
+            if (nimi.contains(","))	{
+                // Useampiosaiset sukunimet ("van Gogh, Vincent")
+                if (nimi.substring(0, nimi.indexOf(",")).contains(" ")) {
+                    char merkki = Character.toLowerCase(nimi.charAt(0));
+                    if (merkki == 'ä') merkki = 'a';
+                    if (merkki == 'ö') merkki = 'o';
+                    viite += merkki;
+
+                    merkki = nimi.charAt(nimi.indexOf(" ")+1);
+                    if (merkki == 'Ä') merkki = 'A';
+                    if (merkki == 'Ö') merkki = 'O';
+                    viite += merkki;
+                }
+                // Yksiosaiset sukunimet ("Kekkonen, Urho Kaleva")
+                else
+                {
+                    char merkki = nimi.charAt(0);
+                    if (merkki == 'Ä') merkki = 'A';
+                    if (merkki == 'Ö') merkki = 'O';
+                    viite += merkki;
+                }
+            }
+            // Etunimi Sukunimi ("Urho Kekkonen")
+            else
+            {
+                char merkki = nimi.charAt(nimi.lastIndexOf(" ")+1);
+                if (merkki == 'Ä') merkki = 'A';
+                if (merkki == 'Ö') merkki = 'O';
+                viite += merkki;
+            }
+        }
+
+        // Vain 4 ensimmaista kirjainta mahtuu viitteeseen.
+        if (viite.length() > 4)
+        viite = viite.substring(0,4);
+
+        // Vuosiluvun kaksi viimeista numeroa viitteen loppuun.
+        viite += Integer.toString(year).substring(2,4);
+
+        return viite;
+    }
 }
+

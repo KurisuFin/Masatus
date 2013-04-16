@@ -85,8 +85,7 @@ public class AddReferenceTest {
         status(postTestInput(input));
         List<Reference> refs = Database.findAll();
         assertThat(Database.findAll().size()).isEqualTo(1);
-        assertThat(refs.get(0).getType().toString()).isEqualTo(input.get("type"));
-        assertThat(refs.get(0).getCiteKey()).isEqualTo(input.get("citeKey"));
+        assertThat(refs.get(0).getType().toString()).isEqualTo(input.get("type"));        
         assertThat(refs.get(0).getTitle()).isEqualTo(input.get("title"));
         assertThat(refs.get(0).getAuthor()).isEqualTo(input.get("author"));
         assertThat(refs.get(0).getYear()).isEqualTo(Integer.parseInt(input.get("year")));
@@ -99,33 +98,6 @@ public class AddReferenceTest {
         assertThat(refs.get(0).getPublisher()).isEqualTo(input.get("publisher"));
         assertThat(refs.get(0).getAddress()).isEqualTo(input.get("address"));
         assertThat(refs.get(0).getOrganization()).isEqualTo(input.get("organization"));
-    }
-
-    @Test
-    public void failsIfCiteKeyStartsWithNumber() {
-        input.put("citeKey", "0abc");
-        Result result = postTestInput(input);
-        assertThat(status(result)).isEqualTo(BAD_REQUEST);
-        assertThat(contentAsString(result)).contains("Voi sisältää vain merkkejä ");
-        assertThat(Database.findAll().isEmpty());
-    }
-
-    @Test
-    public void failsIfCiteKeyHasSpaces() {
-        input.put("citeKey", "a bc");
-        Result result = postTestInput(input);
-        assertThat(status(result)).isEqualTo(BAD_REQUEST);
-        assertThat(contentAsString(result)).contains("Voi sisältää vain merkkejä ");
-        assertThat(Database.findAll().isEmpty());
-    }
-
-    @Test
-    public void failsIfCiteKeyHasIllegalCharacters() {
-        input.put("citeKey", "a.bc");
-        Result result = postTestInput(input);
-        assertThat(status(result)).isEqualTo(BAD_REQUEST);
-        assertThat(contentAsString(result)).contains("Voi sisältää vain merkkejä ");
-        assertThat(Database.findAll().isEmpty());
     }
 
     @Test
@@ -179,15 +151,6 @@ public class AddReferenceTest {
         Result result = postTestInput(input);
         assertThat(status(result)).isEqualTo(BAD_REQUEST);
         assertThat(contentAsString(result)).contains("Arvo saa olla enintään");
-        assertThat(Database.findAll().isEmpty());
-    }
-
-    @Test
-    public void failsIfCiteKeyMissing() {
-        input.put("citeKey", "");
-        Result result = postTestInput(input);
-        assertThat(status(result)).isEqualTo(BAD_REQUEST);
-        assertThat(contentAsString(result)).contains("Kenttä on pakollinen");
         assertThat(Database.findAll().isEmpty());
     }
 
