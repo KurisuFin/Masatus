@@ -6,3 +6,7 @@ https://docs.google.com/spreadsheet/pub?key=0Au6wcLMGlhM9dEpieHU1LXBia01IaS1PZ3J
 CI-palvelimen osoite:
 
 http://t-timoahlb.users.cs.helsinki.fi/jenkins/job/MasaDB/
+
+Jatkuvasti katsottavissa oleva tuorein versio:
+
+http://akorvenr.users.cs.helsinki.fi/
