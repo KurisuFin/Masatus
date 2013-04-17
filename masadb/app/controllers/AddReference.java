@@ -12,6 +12,7 @@ import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.add;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Sovelluslogiikka viittausten lisäyssivua varten.
@@ -164,12 +165,43 @@ public class AddReference extends Controller {
 
         // Vain 4 ensimmaista kirjainta mahtuu viitteeseen.
         if (viite.length() > 4)
-        viite = viite.substring(0,4);
+            viite = viite.substring(0,4);
 
         // Vuosiluvun kaksi viimeista numeroa viitteen loppuun.
         viite += Integer.toString(year).substring(2,4);
 
-        return viite;
+        return makeUniqueCiteKey(viite);
+    }
+
+    /**
+     * Tarkistaa tietokannasta onko samalla tavalla alkavia viiteavaimia jo olemassa.
+     * Tarvittaessa generoi erottelukirjaimia.
+     *
+     * @param citeKey Sitaattiavain
+     * @return Uniikki sitaattiavain
+     */
+    private static String makeUniqueCiteKey(String citeKey) {
+        List<Reference> refs = Database.findAll();
+        int count = 0;
+
+        for (Reference ref : refs)
+            if (ref.getCiteKey().startsWith(citeKey))
+                count++;
+
+        return citeKey + createEnding(count);
+    }
+
+    /**
+     * Luo halutun sitaattiavainerottimen.
+     *
+     * @param count Monennes kirjainyhdistelmä
+     * @return Annettua lukua vastaava kirjainyhdistelmä
+     */
+    private static String createEnding(int count) {
+        if (count == 0)
+            return "";
+
+        return createEnding((count - 1) / 26) + (char)('a' + (count - 1) % 26);
     }
 }
 

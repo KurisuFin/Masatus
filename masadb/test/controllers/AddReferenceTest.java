@@ -27,7 +27,6 @@ public class AddReferenceTest {
 
         input = new TreeMap<String, String>();
         input.put("type", "Book");
-        input.put("citeKey", "abc_123_def-2");
         input.put("title", "Asd Fasdf Asf Asf");
         input.put("author", "A AD Dwe Da A");
         input.put("year", "2099");
@@ -260,5 +259,90 @@ public class AddReferenceTest {
     @Test
     public void organizationIsOptional() {
         testOptionalField("organization");
+    }
+
+    // CITE KEY TESTS
+
+    @Test
+    public void citeKeyContainsFirstLetterOfAuthorAndTwoLastDigitsOfYear() {
+        input.put("author", "Urho Kekkonen");
+        input.put("year", "2010");
+        status(postTestInput(input));
+
+        List<Reference> refs = Database.findAll();
+        assertThat(refs.get(0).getCiteKey()).isEqualTo("K10");
+    }
+
+    @Test
+    public void citeKeyIsGeneratedRightWhenNameIsSeparatedWithComma() {
+        input.put("author", "Kekkonen, Urho");
+        input.put("year", "2010");
+        status(postTestInput(input));
+
+        List<Reference> refs = Database.findAll();
+        assertThat(refs.get(0).getCiteKey()).isEqualTo("K10");
+    }
+
+    @Test
+    public void citeKeyContainsSmallLetterOfLastName() {
+        input.put("author", "von Richthofen, Manfred");
+        input.put("year", "2013");
+        status(postTestInput(input));
+
+        List<Reference> refs = Database.findAll();
+        assertThat(refs.get(0).getCiteKey()).isEqualTo("vR13");
+    }
+
+    @Test
+    public void citeKeyContainsFirstLettersOfAuthors() {
+        input.put("author", "Kekkonen, Urho and von Richthofen, Manfred and Jeesus Nasaretilainen");
+        input.put("year", "2013");
+        status(postTestInput(input));
+
+        List<Reference> refs = Database.findAll();
+        assertThat(refs.get(0).getCiteKey()).isEqualTo("KvRN13");
+    }
+
+    public void citeKeyContainsMaximumOfFourLetters() {
+        input.put("author", "Kekkonen, Urho and von Richthofen, Manfred and Jeesus Nasaretilainen and Descartes, Rene");
+        input.put("year", "2013");
+        status(postTestInput(input));
+
+        List<Reference> refs = Database.findAll();
+        assertThat(refs.get(0).getCiteKey()).isEqualTo("KvRN13");
+    }
+
+    @Test
+    public void aLetterIsAddedInCaseOfSameCiteKey() {
+        input.put("author", "Kekkonen, Urho");
+        input.put("year", "2013");
+        status(postTestInput(input));
+
+        input.put("author", "Koivisto, Mauno");
+        input.put("year", "2013");
+        status(postTestInput(input));
+
+        input.put("author", "Kallio, Kyösti");
+        input.put("year", "1913");
+        status(postTestInput(input));
+
+        List<Reference> refs = Database.findAll();
+        assertThat(refs.get(0).getCiteKey()).isEqualTo("K13");
+        assertThat(refs.get(1).getCiteKey()).isEqualTo("K13a");
+        assertThat(refs.get(2).getCiteKey()).isEqualTo("K13b");
+    }
+
+    @Test
+    public void allCiteKeysAreUnique() {
+        int loop = 50;
+
+        for (int i = 0; i < loop; ++i)
+            status(postTestInput(input));
+
+        List<Reference> refs = Database.findAll();
+
+        for (int i = 0; i < loop-1; ++i)
+            for (int j = i+1; j < loop; ++j)
+                assertThat(refs.get(i).getCiteKey()).isNotEqualTo(refs.get(j).getCiteKey());
     }
 }

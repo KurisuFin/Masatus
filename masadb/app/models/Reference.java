@@ -26,8 +26,6 @@ public class Reference extends Model {
     /**
      * Latex-dokumentissa käytettävä viiteavain (citation key).
      * Pakollinen kenttä.
-     * TODO: Pitäisi olla yksikäsitteinen, ja olisi hyvä generoida
-     * automaattisesti käyttäjän puolesta.
      */
     @NotNull
     private String citeKey;
