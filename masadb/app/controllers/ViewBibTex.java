@@ -24,6 +24,7 @@ public class ViewBibTex extends Controller {
      */
     public static Result show() {
         /* Asetetaan headeri tiedoston lataukselle */
+        response().setContentType("application/octet-stream");
         response().setHeader("Content-Disposition", "attachment; filename=masadb.bib");
 
         List<Reference> refs = Database.findAll();
