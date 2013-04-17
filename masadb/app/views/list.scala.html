@@ -2,7 +2,11 @@
 
 @main("Kaikki lähdeviitteet") {
 
-    <p><a id="add" href="add">Lisää uusi viite</a></p>
+    <a class="btn btn-primary" id="add" href="@routes.AddReference.show()">Lisää uusi viite</a>
+    <a class="btn btn-primary" id="download-bibtex" href="@routes.ViewBibTex.show">Lataa BibTex -tiedosto</a>
+
+
+    <div class="add-entry-content">
 
     @if(refs.isEmpty()) {
         <p>Tietokantaan ei ole lisätty vielä yhtään viitettä.</p>
@@ -22,6 +26,7 @@
             </tr>
         }
         </table>
+    </div>
     }
 
 }
