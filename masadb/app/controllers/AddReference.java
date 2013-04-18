@@ -99,7 +99,7 @@ public class AddReference extends Controller {
 
         if (!form.get().pages.isEmpty() && !form.get().pages.matches(
                 "[1-9][0-9]*--[1-9][0-9]*")) {
-            form.reject("month", "Anna sivut muodossa 123--321.");
+            form.reject("pages", "Anna sivut muodossa 123--321.");
             return true;
         }
 
@@ -168,7 +168,11 @@ public class AddReference extends Controller {
             viite = viite.substring(0,4);
 
         // Vuosiluvun kaksi viimeista numeroa viitteen loppuun.
-        viite += Integer.toString(year).substring(2,4);
+		String yearString = Integer.toString(year);
+		if (yearString.length() < 2)
+			viite += yearString;
+		else
+			viite += yearString.substring(yearString.length()-2, yearString.length());
 
         return makeUniqueCiteKey(viite);
     }
