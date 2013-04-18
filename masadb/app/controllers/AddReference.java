@@ -99,7 +99,7 @@ public class AddReference extends Controller {
 
         if (!form.get().pages.isEmpty() && !form.get().pages.matches(
                 "[1-9][0-9]*--[1-9][0-9]*")) {
-            form.reject("month", "Anna sivut muodossa 123--321.");
+            form.reject("pages", "Anna sivut muodossa 123--321.");
             return true;
         }
 
