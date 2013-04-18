@@ -331,6 +331,26 @@ public class AddReferenceTest {
         assertThat(refs.get(1).getCiteKey()).isEqualTo("K13a");
         assertThat(refs.get(2).getCiteKey()).isEqualTo("K13b");
     }
+	
+	@Test
+	public void yearsAreProcessedCorrectlyForCiteKey() {
+        input.put("author", "Zorro, Diego");
+        input.put("year", "213");
+        status(postTestInput(input));
+
+        input.put("author", "Xonar, Asus");
+        input.put("year", "23");
+        status(postTestInput(input));
+
+        input.put("author", "Yttrium, Lanthanide");
+        input.put("year", "1");
+        status(postTestInput(input));
+
+        List<Reference> refs = Database.findAll();
+        assertThat(refs.get(0).getCiteKey()).isEqualTo("Z13");
+        assertThat(refs.get(1).getCiteKey()).isEqualTo("X23");
+        assertThat(refs.get(2).getCiteKey()).isEqualTo("Y1");
+    }
 
     @Test
     public void allCiteKeysAreUnique() {
