@@ -5,15 +5,15 @@ import models._
 
 import cucumber.api.scala.{ScalaDsl, EN}
 import play.api.test._
- 
+
 import play.api._
 import libs.ws.WS
 import play.api.mvc._
 import play.api.http._
- 
+
 import play.api.libs.iteratee._
 import play.api.libs.concurrent._
- 
+
 import org.openqa.selenium._
 import org.openqa.selenium.firefox._
 import org.openqa.selenium.htmlunit._
@@ -65,8 +65,8 @@ class CucumberSteps extends ScalaDsl with EN {
     And("""^I submit the form"""){ () =>
         browser.$("#save").click() //Env.browser.submit("#save")
         assertEquals("MasaDB - Kaikki lähdeviitteet", browser.title())
-    }    
-    
+    }
+
     And("""^I go to the reference list$"""){ () =>
         browser.goTo("http://localhost:3333/")
         assertEquals("MasaDB - Kaikki lähdeviitteet", browser.title())
@@ -81,30 +81,30 @@ class CucumberSteps extends ScalaDsl with EN {
         assertFalse(browser.$("p", withText().contains(
                     "Tietokantaan ei ole lisätty vielä yhtään viitettä.")).isEmpty())
     }
-    
+
     And("""^I choose article as the reference type$"""){ () =>
         browser.$("#type").text("Artikkeli")
     }
-    
+
     Given("""^A tech report reference has been added$"""){ () =>
         Database.save(new Reference(TechReport, "bt99", "The Title",
                                     "Author Name", 2099))
     }
-    
+
     And("""^I open link to view the reference$"""){ () =>
         browser.$("a", withText().contains("The Title")).click()
         assertEquals("MasaDB - Viitteen tiedot", browser.title())
     }
-    
+
     Then("""^The reference type should show tech report$"""){ () =>
         assertFalse(browser.$("#type", withText().contains("Tekninen raportti")).isEmpty())
     }
-    
+
     Given("""^A proceedings reference has been added$"""){ () =>
         Database.save(new Reference(Proceedings, "bt99", "The Title",
                                     "Author Name", 2099))
     }
-    
+
     Then("""^The page should contain BibTex code for the proceedings reference$"""){ () =>
         assertFalse(browser.$("#bibtex", withText().contains(
                     "@proceedings{bt99,\n"
@@ -113,5 +113,13 @@ class CucumberSteps extends ScalaDsl with EN {
                     + "year = {2099},\n"
                     + "}"
                 )).isEmpty())
-    }    
+    }
+
+    And("""^I download BibTex file$"""){ () =>
+        browser.$("a", withText().contains("Lataa BibTex -tiedosto")).click()
+    }
+
+    Then("""^The browser starts downloading a BibTex file$"""){ () =>
+        assertEquals(null, browser.title())
+    }
 }
