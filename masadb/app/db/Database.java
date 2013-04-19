@@ -51,6 +51,6 @@ public class Database {
      * @return Lista löydetyistä viitteistä.
      */
     public static List<Reference> findByAuthor(String author) {
-        return Ebean.find(Reference.class).where().contains("author", author).findList();
+        return Ebean.find(Reference.class).where().icontains("author", author).findList();
     }
 }

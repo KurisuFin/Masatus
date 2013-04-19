@@ -107,6 +107,16 @@ public class ReferenceListTest {
     }
 
     @Test
+    public void searchIsCaseInsensitive() {
+        Reference ref1 = new Reference(Book, "a", "title 1", "Author 1", 1001);
+        Database.save(ref1);
+
+        Result result = request("author");
+
+        assertThat(contentAsString(result)).contains(ref1.getTitle());
+    }
+
+    @Test
     public void showMessageWhenNoResults() {
         Reference ref1 = new Reference(Book, "a", "title 1", "author 1", 1001);
         Reference ref2 = new Reference(Book, "b", "title 2", "author foo 2", 1002);
