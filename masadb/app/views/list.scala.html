@@ -1,10 +1,16 @@
 @(refs: List[Reference])
 
+@import helper._
+
 @main("Kaikki lähdeviitteet") {
 
-    <a class="btn btn-primary" id="add" href="@routes.AddReference.show()">Lisää uusi viite</a>
-    <a class="btn btn-primary" id="download-bibtex" href="@routes.ViewBibTex.show">Lataa BibTex -tiedosto</a>
+    <a class="btn" id="add" href="@routes.AddReference.show()">Lisää uusi viite</a>
+    <a class="btn" id="download-bibtex" href="@routes.ViewBibTex.show">Lataa BibTex -tiedosto</a>
 
+    @form(action = routes.ReferenceList.show, args = 'class -> "searchform", 'id -> "searchform") {
+        <input type="search" id="searchbox" name="filter" placeholder="Hae tekijän mukaan...">
+        <input type="submit" id="searchsubmit" value="Hae" class="btn">
+    }
 
     <div class="add-entry-content">
 

@@ -62,4 +62,9 @@ table.computers .header a {
     color: #666;
 }
 
+form.searchform {
+    display: inline-block;
+    vertical-align:baseline;
+    margin-left:50px;
+}
 
