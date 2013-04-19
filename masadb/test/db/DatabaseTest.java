@@ -130,4 +130,16 @@ public class DatabaseTest {
         List<Reference> all = Database.findAll();
         assertEquals(1, all.size());
     }
+
+    @Test
+    public void testFindByAuthor() {
+        Database.save(ref1);
+        Database.save(ref2);
+        Reference ref3 = new Reference(Book, "a", "MasaDB", "M. Masa III", 1);
+        Database.save(ref3);
+        List<Reference> list = Database.findByAuthor("Masa I");
+        assertEquals(2, list.size());
+        assertEquals(ref2.getId(), list.get(0).getId());
+        assertEquals(ref3.getId(), list.get(1).getId());
+    }
 }

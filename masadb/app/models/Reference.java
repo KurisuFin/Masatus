@@ -17,8 +17,7 @@ public class Reference extends Model {
     private Integer id;
 
     /**
-     * Yksikäsitteinen automaattisesti generoitu tunniste. Pakollinen
-     * kenttä.
+     * Viitteen tyyppi (kirja/artikkeli jne). Pakollinen kenttä.
      */
     @NotNull
     private ReferenceType type;

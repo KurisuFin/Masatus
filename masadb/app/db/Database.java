@@ -43,4 +43,14 @@ public class Database {
     public static boolean delete(int id) {
         return Ebean.delete(Reference.class, id) != 0;
     }
+
+    /**
+     * Hakee kaikki viitteet joiden tekijät sisältävät annetun
+     * merkkijonon.
+     * @param author Haettava merkkijono.
+     * @return Lista löydetyistä viitteistä.
+     */
+    public static List<Reference> findByAuthor(String author) {
+        return Ebean.find(Reference.class).where().contains("author", author).findList();
+    }
 }
