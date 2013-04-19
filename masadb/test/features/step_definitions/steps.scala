@@ -79,7 +79,7 @@ class CucumberSteps extends ScalaDsl with EN {
 
     Then("""^The list should have no entries$"""){ () =>
         assertFalse(browser.$("p", withText().contains(
-                    "Tietokantaan ei ole lisätty vielä yhtään viitettä.")).isEmpty())
+                    "Haulla ei löytynyt yhtään viitettä.")).isEmpty())
     }
 
     And("""^I choose article as the reference type$"""){ () =>

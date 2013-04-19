@@ -21,7 +21,7 @@ public class ViewReference extends Controller {
     public static Result show() {
         int id;
         try {
-            id = Integer.parseInt(Controller.request().getQueryString("id"));
+            id = Integer.parseInt(request().getQueryString("id"));
         } catch (NumberFormatException e) {
             return badRequest("Virheellinen viitetunnus.");
         }
