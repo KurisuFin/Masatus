@@ -43,9 +43,9 @@ public class ReferenceTest {
     @Test
     public void bibtexWhenNoOptionalTags() {
         assertEquals("@book{M12,\n"
-                + "title = {The Title},\n"
-                + "author = {Masa},\n"
-                + "year = {2012},\n"
+                + "    title = {The Title},\n"
+                + "    author = {Masa},\n"
+                + "    year = {2012},\n"
                 + "}",
                 ref.generateBibtexEntry());
     }
@@ -62,18 +62,18 @@ public class ReferenceTest {
         ref.setAddress("Masala");
         ref.setOrganization("Masala University");
         assertEquals("@book{M12,\n"
-                + "title = {The Title},\n"
-                + "author = {Masa},\n"
-                + "year = {2012},\n"
-                + "month = {jan},\n"
-                + "volume = {7},\n"
-                + "number = {8},\n"
-                + "edition = {Second},\n"
-                + "pages = {123--321},\n"
-                + "booktitle = {Book Title},\n"
-                + "publisher = {Masa Publishing},\n"
-                + "address = {Masala},\n"
-                + "organization = {Masala University},\n"
+                + "    title = {The Title},\n"
+                + "    author = {Masa},\n"
+                + "    year = {2012},\n"
+                + "    month = {jan},\n"
+                + "    volume = {7},\n"
+                + "    number = {8},\n"
+                + "    edition = {Second},\n"
+                + "    pages = {123--321},\n"
+                + "    booktitle = {Book Title},\n"
+                + "    publisher = {Masa Publishing},\n"
+                + "    address = {Masala},\n"
+                + "    organization = {Masala University},\n"
                 + "}",
                 ref.generateBibtexEntry());
     }
@@ -82,9 +82,9 @@ public class ReferenceTest {
     public void bibtexWithSpecialCharacters() {
         ref.setTitle("åäöÅÄÖ");
         assertEquals("@book{M12,\n"
-                + "title = {\\r{a}\\\"{a}\\\"{o}{\\r{A}}{\\\"{A}}{\\\"{O}}},\n"
-                + "author = {Masa},\n"
-                + "year = {2012},\n"
+                + "    title = {\\r{a}\\\"{a}\\\"{o}{\\r{A}}{\\\"{A}}{\\\"{O}}},\n"
+                + "    author = {Masa},\n"
+                + "    year = {2012},\n"
                 + "}",
                 ref.generateBibtexEntry());
     }
@@ -93,9 +93,9 @@ public class ReferenceTest {
     public void bibtexWithAcronyms() {
         ref.setTitle("AB cde FGhi jk Lmno pqRstu VW XYZ");
         assertEquals("@book{M12,\n"
-                + "title = {{A}{B} cde {F}{G}hi jk Lmno pqRstu {V}{W} {X}{Y}{Z}},\n"
-                + "author = {Masa},\n"
-                + "year = {2012},\n"
+                + "    title = {{A}{B} cde {F}{G}hi jk Lmno pqRstu {V}{W} {X}{Y}{Z}},\n"
+                + "    author = {Masa},\n"
+                + "    year = {2012},\n"
                 + "}",
                 ref.generateBibtexEntry());
     }
@@ -104,9 +104,9 @@ public class ReferenceTest {
     public void bibtexForArticle() {
         ref.setType(Article);
         assertEquals("@article{M12,\n"
-                + "title = {The Title},\n"
-                + "author = {Masa},\n"
-                + "year = {2012},\n"
+                + "    title = {The Title},\n"
+                + "    author = {Masa},\n"
+                + "    year = {2012},\n"
                 + "}",
                 ref.generateBibtexEntry());
     }

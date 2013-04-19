@@ -108,9 +108,9 @@ class CucumberSteps extends ScalaDsl with EN {
     Then("""^The page should contain BibTex code for the proceedings reference$"""){ () =>
         assertFalse(browser.$("#bibtex", withText().contains(
                     "@proceedings{bt99,\n"
-                    + "title = {The Title},\n"
-                    + "author = {Author Name},\n"
-                    + "year = {2099},\n"
+                    + "    title = {The Title},\n"
+                    + "    author = {Author Name},\n"
+                    + "    year = {2099},\n"
                     + "}"
                 )).isEmpty())
     }

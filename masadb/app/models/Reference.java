@@ -159,6 +159,7 @@ public class Reference extends Model {
      */
     private void generateTag(String name, String value, StringBuilder sb) {
         if (value != null && !value.isEmpty()) {
+            sb.append("    ");
             sb.append(name);
             sb.append(" = {");
             sb.append(encodeString(value));
