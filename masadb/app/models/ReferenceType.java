@@ -10,7 +10,7 @@ public enum ReferenceType {
     Booklet,
     InBook,
     InCollection,
-    InPoceedings,
+    InProceedings,
     Manual,
     MastersThesis,
     Misc,
@@ -31,7 +31,7 @@ public enum ReferenceType {
                 return "Kirjan osa";
             case InCollection:
                 return "Kokoelman osa";
-            case InPoceedings:
+            case InProceedings:
                 return "Konferenssijulkaisun osa";
             case Manual:
                 return "Manuaali";

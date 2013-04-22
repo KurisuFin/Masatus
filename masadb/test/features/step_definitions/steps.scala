@@ -122,4 +122,29 @@ class CucumberSteps extends ScalaDsl with EN {
     Then("""^The browser starts downloading a BibTex file$"""){ () =>
         assertEquals(null, browser.title())
     }
+
+    Given("""^Several entries added to database$"""){ () =>
+        Database.save(new Reference(Article, "a", "title1", "test", 1))
+        Database.save(new Reference(Book, "b", "title2", "FOO test", 1))
+        Database.save(new Reference(InProceedings, "c", "title3", "test FOo", 1))
+    }
+
+    And("""^I enter author in search box$"""){ () =>
+        browser.$("#searchbox").text("Foo")
+    }
+
+    And("""^I submit the search"""){ () =>
+        browser.$("#searchsubmit").click()
+        assertEquals("MasaDB - Kaikki lähdeviitteet", browser.title())
+    }
+
+    Then("""^List should contain entries with given author$"""){ () =>
+        assertFalse(browser.$("td", withText().contains("title2")).isEmpty())
+        assertFalse(browser.$("td", withText().contains("title3")).isEmpty())
+    }
+
+    Then("""^List should not contain entries without given author$"""){ () =>
+        assertTrue(browser.$("td", withText().contains("title1")).isEmpty())
+    }
+
 }
