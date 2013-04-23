@@ -1,12 +1,13 @@
-@(myForm: Form[ModifyReference.UserInput])
+@(id: Integer, myForm: Form[Reference])
 
 @import helper._
 
-@main(title = "Uusi lähdeviite") {
+@main(title = "Muokkaa lähdeviitettä") {
 
     <h1>Lähdeviitteen tiedot:</h1>
 
-    @form(action = routes.ModifyReference.save, args = 'id -> "myform") {
+        @form(routes.ModifyReference.update(id)) {
+
 
         @select(
             field = myForm("type"),

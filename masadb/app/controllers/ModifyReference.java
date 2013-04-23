@@ -11,13 +11,25 @@ import play.data.validation.Constraints.Required;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.add;
+import views.html.editForm;
 import java.util.ArrayList;
 import java.util.List;
+
+
+import java.util.*;
+import javax.persistence.*;
+
+import play.db.ebean.*;
+import play.data.format.*;
+import play.data.validation.*;
+
+import com.avaje.ebean.*;
+
 
 /**
  * Sovelluslogiikka viittausten lisäyssivua varten.
  */
-public class AddReference extends Controller {
+public class ModifyReference extends Controller {
 
     /**
      * Tietue lomakkeeseen syötetyille tiedoille.
@@ -45,8 +57,54 @@ public class AddReference extends Controller {
      * @return Sivun sisältö.
      */
     public static Result show() {
-        return ok(add.render(form(UserInput.class)));
+          return ok(add.render(form(UserInput.class)));
     }
+
+    /**
+     * Generoi sivun sisällön ja täyttää kentät
+     *
+     * @return Sivun sisältö.
+     */
+    public static Result edit(Integer id) {
+        //Integer id = Integer.parseInt(request().getQueryString("id"));
+        Form<Reference> referenceForm = form(Reference.class).fill(
+            Reference.find.byId(id)
+        );
+        return ok(editForm.render(id, referenceForm));
+    }
+
+    public static Result update(Integer id) {
+        Form<Reference> referenceForm = form(Reference.class).bindFromRequest();
+        if(referenceForm.hasErrors()) {
+            return badRequest(editForm.render(id, referenceForm));
+        }
+        Reference reference = Reference.find.byId(id);
+        Reference ref = referenceForm .get();
+        //reference.id = id;
+        //reference.update();
+        //referenceForm.get().update(id);
+
+
+        reference.setType(ref.type);
+        reference.setAuthor(ref.author);
+        reference.setTitle(ref.title);
+        reference.setYear(ref.year);
+        reference.setMonth(ref.month);
+        reference.setVolume(ref.volume);
+        reference.setNumber(ref.number);
+        reference.setEdition(ref.edition);
+        reference.setPages(ref.pages);
+        reference.setBookTitle(ref.bookTitle);
+        reference.setPublisher(ref.publisher);
+        reference.setAddress(ref.address);
+        reference.setOrganization(ref.organization);
+
+        Database.save(reference);
+
+        flash("success", "Tietue " + referenceForm.get().getTitle() + " on päivitetty.");
+        return redirect(routes.ReferenceList.show());
+    }
+
 
     /**
      * Tallentaa lomakkeen tiedot. Jos lomakkeessa on virhe, näytetään se

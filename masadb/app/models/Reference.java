@@ -14,84 +14,90 @@ public class Reference extends Model {
      * Yksikäsitteinen automaattisesti generoitu tunniste.
      */
     @Id
-    private Integer id;
+    public Integer id;
 
     /**
      * Viitteen tyyppi (kirja/artikkeli jne). Pakollinen kenttä.
      */
     @NotNull
-    private ReferenceType type;
+    public ReferenceType type;
 
     /**
      * Latex-dokumentissa käytettävä viiteavain (citation key).
      * Pakollinen kenttä.
      */
     @NotNull
-    private String citeKey;
+    public String citeKey;
 
     /**
      * Nimi. Pakollinen kenttä.
      */
     @NotNull
-    private String title;
+    public String title;
 
     /**
      * Tekijän tai tekijöiden nimet. Pakollinen kenttä.
      */
     @NotNull
-    private String author;
+    public String author;
 
     /**
      * Julkaisuvuosi. Pakollinen kenttä.
      */
     @NotNull
-    private Integer year;
+    public Integer year;
 
     /**
      * Julkaisukuukausi.
      */
-    private String month;
+    public String month;
 
     /**
      * Kirjan osa.
      */
-    private Integer volume;
+    public Integer volume;
 
     /**
      * Tiedejulkaisun, lehden tms numero.
      */
-    private Integer number;
+    public Integer number;
 
     /**
      * Kirjan painos.
      */
-    private String edition;
+    public String edition;
 
     /**
      * Sivunumerot muodossa "123--234".
      */
-    private String pages;
+    public String pages;
 
     /**
      * Kirjan tai muun julkaisun nimi viitteille, jotka ovat osa
      * isompaa julkaisua.
      */
-    private String bookTitle;
+    public String bookTitle;
 
     /**
      * Julkaisija.
      */
-    private String publisher;
+    public String publisher;
 
     /**
      * Julkaisijan osoite.
      */
-    private String address;
+    public String address;
 
     /**
      * Organisaatio (esim. konferenssin järjestäjä).
      */
-    private String organization;
+    public String organization;
+
+
+    /**
+     * Tietueen haku
+     */
+    public static Finder<Integer,Reference> find = new Finder<Integer,Reference>(Integer.class, Reference.class);
 
     /**
      * Default-konstruktori.

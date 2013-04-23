@@ -8,9 +8,12 @@ GET     /                           controllers.ReferenceList.show()
 # Viitelista
 GET     /list                       controllers.ReferenceList.show()
 
-# Viitteiden lisäys
-GET     /add                        controllers.AddReference.show()
-POST    /add                        controllers.AddReference.save()
+# Viitteiden lisäys ja muokkaus
+GET     /add                        controllers.ModifyReference.show()
+POST    /add                        controllers.ModifyReference.save()
+GET     /edit/:id                   controllers.ModifyReference.edit(id: Integer)
+POST    /edit/:id                   controllers.ModifyReference.update(id: Integer)
+
 
 # Viitteiden tarkastelu
 GET     /view                       controllers.ViewReference.show()

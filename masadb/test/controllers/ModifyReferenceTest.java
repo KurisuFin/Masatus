@@ -15,7 +15,7 @@ import play.test.FakeRequest;
 import play.test.Helpers;
 import static play.test.Helpers.*;
 
-public class AddReferenceTest {
+public class ModifyReferenceTest {
 
     FakeApplication fa;
     Map<String, String> input;
@@ -48,7 +48,7 @@ public class AddReferenceTest {
 
     Result postTestInput(Map<String, String> input) {
         FakeRequest fr = fakeRequest(POST, "/add").withFormUrlEncodedBody(input);
-        return callAction(controllers.routes.ref.AddReference.save(), fr);
+        return callAction(controllers.routes.ref.ModifyReference.save(), fr);
     }
 
     void testOptionalField(String name) {
@@ -60,7 +60,7 @@ public class AddReferenceTest {
 
     @Test
     public void pageTypeIsCorrect() {
-        Result result = callAction(controllers.routes.ref.AddReference.show(), fakeRequest());
+        Result result = callAction(controllers.routes.ref.ModifyReference.show(), fakeRequest());
         assertThat(contentType(result)).isEqualTo("text/html");
         assertThat(status(result)).isEqualTo(OK);
     }
@@ -84,7 +84,7 @@ public class AddReferenceTest {
         status(postTestInput(input));
         List<Reference> refs = Database.findAll();
         assertThat(Database.findAll().size()).isEqualTo(1);
-        assertThat(refs.get(0).getType().toString()).isEqualTo(input.get("type"));        
+        assertThat(refs.get(0).getType().toString()).isEqualTo(input.get("type"));
         assertThat(refs.get(0).getTitle()).isEqualTo(input.get("title"));
         assertThat(refs.get(0).getAuthor()).isEqualTo(input.get("author"));
         assertThat(refs.get(0).getYear()).isEqualTo(Integer.parseInt(input.get("year")));
@@ -331,7 +331,7 @@ public class AddReferenceTest {
         assertThat(refs.get(1).getCiteKey()).isEqualTo("K13a");
         assertThat(refs.get(2).getCiteKey()).isEqualTo("K13b");
     }
-	
+
 	@Test
 	public void yearsAreProcessedCorrectlyForCiteKey() {
         input.put("author", "Zorro, Diego");

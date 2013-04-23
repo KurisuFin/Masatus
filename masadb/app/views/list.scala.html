@@ -4,7 +4,7 @@
 
 @main("Kaikki lähdeviitteet") {
 
-    <a class="btn" id="add" href="@routes.AddReference.show()">Lisää uusi viite</a>
+    <a class="btn" id="add" href="@routes.ModifyReference.show()">Lisää uusi viite</a>
     <a class="btn" id="download-bibtex" href="@routes.ViewBibTex.show">Lataa BibTex -tiedosto</a>
 
     @form(action = routes.ReferenceList.show, args = 'class -> "searchform", 'id -> "searchform") {
