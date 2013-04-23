@@ -8,7 +8,7 @@ import static play.data.Form.*;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.add;
-import views.html.editForm;
+import views.html.edit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class ModifyReference extends Controller {
         Form<Reference> referenceForm = form(Reference.class).fill(
             Reference.find.byId(id)
         );
-        return ok(editForm.render(id, referenceForm));
+        return ok(edit.render(id, referenceForm));
     }
 
     public static Result update(Integer id) {
@@ -55,7 +55,7 @@ public class ModifyReference extends Controller {
 
         // Validoidaan kentät.
         if (formHasErrors(referenceForm)) {
-            return badRequest(editForm.render(id, referenceForm));
+            return badRequest(edit.render(id, referenceForm));
         }
 
         // Haetaan tietue
