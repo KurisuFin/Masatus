@@ -80,10 +80,6 @@ public class ModifyReference extends Controller {
         }
         Reference reference = Reference.find.byId(id);
         Reference ref = referenceForm .get();
-        //reference.id = id;
-        //reference.update();
-        //referenceForm.get().update(id);
-
 
         reference.setType(ref.type);
         reference.setAuthor(ref.author);

@@ -147,4 +147,27 @@ class CucumberSteps extends ScalaDsl with EN {
         assertTrue(browser.$("td", withText().contains("title1")).isEmpty())
     }
 
+    And("""^I open first reference to view$"""){ () =>
+        browser.$("a", withText().contains("title1")).click()
+        assertEquals("MasaDB - Viitteen tiedot", browser.title())
+    }
+
+    And("""^I clik modify button$"""){ () =>
+        browser.$("a#edit").click()
+    }
+
+    And("""^I modify reference data$"""){ () =>
+        browser.$("#year").text("2020")
+        browser.$("#author").text("Author Name 2")
+    }
+
+    And("""^I submit the edit form"""){ () =>
+        browser.$("#save").click() //Env.browser.submit("#save")
+        assertEquals("MasaDB - Kaikki lähdeviitteet", browser.title())
+    }
+
+    Then("""^The page should show modified data in entry$"""){ () =>
+        assertEquals("2020", browser.find("#year").getText())
+        assertEquals("Author Name 2", browser.find("#author").getText())
+    }
 }
