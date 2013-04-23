@@ -19,7 +19,7 @@ public class ModifyReferenceTest {
 
     FakeApplication fa;
     Map<String, String> input;
-    Map<String, String> mi;
+    Map<String, String> modifiedinput;
 
     @Before
     public void setUp() {
@@ -42,20 +42,20 @@ public class ModifyReferenceTest {
         input.put("organization", "A Sdasf Sas Asad");
 
         // Muokattu data
-        mi = new TreeMap<String, String>();
-        mi.put("type", "Article");
-        mi.put("title", "Asd Fasdf Asf Asf2");
-        mi.put("author", "A AD Dwe Da A2");
-        mi.put("year", "2222");
-        mi.put("month", "feb");
-        mi.put("volume", "9998");
-        mi.put("number", "9998");
-        mi.put("edition", "2rd");
-        mi.put("pages", "123--333");
-        mi.put("bookTitle", "Asd Sdas Sasafd2");
-        mi.put("publisher", "A Aasdaf Af2");
-        mi.put("address", "Street 123 012354 City2");
-        mi.put("organization", "A Sdasf Sas Asad2");
+        modifiedinput = new TreeMap<String, String>();
+        modifiedinput.put("type", "Article");
+        modifiedinput.put("title", "Asd Fasdf Asf Asf2");
+        modifiedinput.put("author", "A AD Dwe Da A2");
+        modifiedinput.put("year", "2033");
+        modifiedinput.put("month", "feb");
+        modifiedinput.put("volume", "9998");
+        modifiedinput.put("number", "9998");
+        modifiedinput.put("edition", "2rd");
+        modifiedinput.put("pages", "123--333");
+        modifiedinput.put("bookTitle", "Asd Sdas Sasafd2");
+        modifiedinput.put("publisher", "A Aasdaf Af2");
+        modifiedinput.put("address", "Street 123 012354 City2");
+        modifiedinput.put("organization", "A Sdasf Sas Asad2");
 
     }
 
@@ -402,23 +402,23 @@ public class ModifyReferenceTest {
 
         status(postTestInput(input));
 
-        status(editPostTestInput(mi));
+        status(editPostTestInput(modifiedinput));
 
         List<Reference> refs = Database.findAll();
         assertThat(Database.findAll().size()).isEqualTo(1);
-        assertThat(refs.get(0).getType().toString()).isEqualTo(mi.get("type"));
-        assertThat(refs.get(0).getTitle()).isEqualTo(mi.get("title"));
-        assertThat(refs.get(0).getAuthor()).isEqualTo(mi.get("author"));
-        assertThat(refs.get(0).getYear()).isEqualTo(Integer.parseInt(mi.get("year")));
-        assertThat(refs.get(0).getMonth()).isEqualTo(mi.get("month"));
-        assertThat(refs.get(0).getVolume()).isEqualTo(Integer.parseInt(mi.get("volume")));
-        assertThat(refs.get(0).getNumber()).isEqualTo(Integer.parseInt(mi.get("number")));
-        assertThat(refs.get(0).getEdition()).isEqualTo(mi.get("edition"));
-        assertThat(refs.get(0).getPages()).isEqualTo(mi.get("pages"));
-        assertThat(refs.get(0).getBookTitle()).isEqualTo(mi.get("bookTitle"));
-        assertThat(refs.get(0).getPublisher()).isEqualTo(mi.get("publisher"));
-        assertThat(refs.get(0).getAddress()).isEqualTo(mi.get("address"));
-        assertThat(refs.get(0).getOrganization()).isEqualTo(mi.get("organization"));
+        assertThat(refs.get(0).getType().toString()).isEqualTo(modifiedinput.get("type"));
+        assertThat(refs.get(0).getTitle()).isEqualTo(modifiedinput.get("title"));
+        assertThat(refs.get(0).getAuthor()).isEqualTo(modifiedinput.get("author"));
+        assertThat(refs.get(0).getYear()).isEqualTo(Integer.parseInt(modifiedinput.get("year")));
+        assertThat(refs.get(0).getMonth()).isEqualTo(modifiedinput.get("month"));
+        assertThat(refs.get(0).getVolume()).isEqualTo(Integer.parseInt(modifiedinput.get("volume")));
+        assertThat(refs.get(0).getNumber()).isEqualTo(Integer.parseInt(modifiedinput.get("number")));
+        assertThat(refs.get(0).getEdition()).isEqualTo(modifiedinput.get("edition"));
+        assertThat(refs.get(0).getPages()).isEqualTo(modifiedinput.get("pages"));
+        assertThat(refs.get(0).getBookTitle()).isEqualTo(modifiedinput.get("bookTitle"));
+        assertThat(refs.get(0).getPublisher()).isEqualTo(modifiedinput.get("publisher"));
+        assertThat(refs.get(0).getAddress()).isEqualTo(modifiedinput.get("address"));
+        assertThat(refs.get(0).getOrganization()).isEqualTo(modifiedinput.get("organization"));
     }
 
 }

@@ -3,6 +3,8 @@ package models;
 import com.avaje.ebean.validation.NotNull;
 import javax.persistence.*;
 import play.db.ebean.*;
+import play.data.format.*;
+import play.data.validation.*;
 
 /**
  * Tietue viitteen tietojen tallennukseen ORM:n avulla.
@@ -19,7 +21,7 @@ public class Reference extends Model {
     /**
      * Viitteen tyyppi (kirja/artikkeli jne). Pakollinen kenttä.
      */
-    @NotNull
+    @NotNull @Constraints.Required
     public ReferenceType type;
 
     /**
@@ -32,19 +34,19 @@ public class Reference extends Model {
     /**
      * Nimi. Pakollinen kenttä.
      */
-    @NotNull
+    @NotNull @Constraints.Required
     public String title;
 
     /**
      * Tekijän tai tekijöiden nimet. Pakollinen kenttä.
      */
-    @NotNull
+    @NotNull @Constraints.Required
     public String author;
 
     /**
      * Julkaisuvuosi. Pakollinen kenttä.
      */
-    @NotNull
+    @NotNull @Constraints.Required @Constraints.Min(1) @Constraints.Max(2099)
     public Integer year;
 
     /**
@@ -55,11 +57,13 @@ public class Reference extends Model {
     /**
      * Kirjan osa.
      */
+    @Constraints.Min(1) @Constraints.Max(9999)
     public Integer volume;
 
     /**
      * Tiedejulkaisun, lehden tms numero.
      */
+    @Constraints.Min(1) @Constraints.Max(9999)
     public Integer number;
 
     /**

@@ -5,9 +5,6 @@ import models.Reference;
 import models.ReferenceType;
 import play.data.Form;
 import static play.data.Form.*;
-import play.data.validation.Constraints.Max;
-import play.data.validation.Constraints.Min;
-import play.data.validation.Constraints.Required;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.add;
@@ -32,32 +29,12 @@ import com.avaje.ebean.*;
 public class ModifyReference extends Controller {
 
     /**
-     * Tietue lomakkeeseen syötetyille tiedoille.
-     */
-    public static class UserInput {
-        @Required public ReferenceType type;
-        public String citeKey;
-        @Required public String title;
-        @Required public String author;
-        @Required @Min(1) @Max(2099) public Integer year;
-        public String month;
-        @Min(1) @Max(9999) public Integer volume;
-        @Min(1) @Max(9999) public Integer number;
-        public String edition;
-        public String pages;
-        public String bookTitle;
-        public String publisher;
-        public String address;
-        public String organization;
-    }
-
-    /**
      * Generoi sivun sisällön.
      *
      * @return Sivun sisältö.
      */
     public static Result show() {
-          return ok(add.render(form(UserInput.class)));
+          return ok(add.render(form(Reference.class)));
     }
 
     /**
@@ -77,7 +54,7 @@ public class ModifyReference extends Controller {
         Form<Reference> referenceForm = form(Reference.class).bindFromRequest();
 
         // Validoidaan kentät.
-        if (editFormHasErrors(referenceForm)) {
+        if (formHasErrors(referenceForm)) {
             return badRequest(editForm.render(id, referenceForm));
         }
 
@@ -113,7 +90,7 @@ public class ModifyReference extends Controller {
      * @param form lomakkeen tiedot
      * @return true jos lomakkeessa on virheitä
      */
-    private static boolean editFormHasErrors(Form<Reference> form) {
+    private static boolean formHasErrors(Form<Reference> form) {
         if (form.hasErrors()) {
             return true;
         }
@@ -142,11 +119,11 @@ public class ModifyReference extends Controller {
      * @return Sivun sisältö.
      */
     public static Result save() {
-        Form<UserInput> form = form(UserInput.class).bindFromRequest();
+        Form<Reference> form = form(Reference.class).bindFromRequest();
         if (formHasErrors(form)) {
             return badRequest(add.render(form));
         } else {
-            UserInput input = form.get();
+            Reference input = form.get();
 
             Reference ref = new Reference(input.type, generoiViite(input.author, input.year),
                     input.title, input.author, input.year);
@@ -164,32 +141,6 @@ public class ModifyReference extends Controller {
 
             return redirect(routes.ReferenceList.show());
         }
-    }
-
-    /**
-     * Tarkistaa onko lomakkeessa virheellisiä kenttiä.
-     *
-     * @param form lomakkeen tiedot
-     * @return true jos lomakkeessa on virheitä
-     */
-    private static boolean formHasErrors(Form<UserInput> form) {
-        if (form.hasErrors()) {
-            return true;
-        }
-
-        if (!form.get().month.isEmpty() && !form.get().month.matches(
-                "(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)")) {
-            form.reject("month", "Anna kuukausi muodossa \"jan\", \"feb\", jne.");
-            return true;
-        }
-
-        if (!form.get().pages.isEmpty() && !form.get().pages.matches(
-                "[1-9][0-9]*--[1-9][0-9]*")) {
-            form.reject("pages", "Anna sivut muodossa 123--321.");
-            return true;
-        }
-
-        return false;
     }
 
     /**
