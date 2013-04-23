@@ -384,6 +384,14 @@ public class ModifyReferenceTest {
                 assertThat(refs.get(i).getCiteKey()).isNotEqualTo(refs.get(j).getCiteKey());
     }
 
+    @Test
+    public void pageTypeIsCorrectForEdit() {
+        status(postTestInput(input));
+        Result result = callAction(controllers.routes.ref.ModifyReference.edit(1), fakeRequest());
+        assertThat(contentType(result)).isEqualTo("text/html");
+        assertThat(status(result)).isEqualTo(OK);
+    }
+
     Result editPostTestInput(Map<String, String> input) {
         FakeRequest fr = fakeRequest(POST, "/edit/1").withFormUrlEncodedBody(input);
         return callAction(controllers.routes.ref.ModifyReference.update(1), fr);
