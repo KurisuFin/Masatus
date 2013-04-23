@@ -421,4 +421,14 @@ public class ModifyReferenceTest {
         assertThat(refs.get(0).getOrganization()).isEqualTo(modifiedinput.get("organization"));
     }
 
+    @Test
+    public void editFormfailsIfYearTooSmall() {
+        input.put("year", "0");
+        Result result = editPostTestInput(input);
+        assertThat(status(result)).isEqualTo(BAD_REQUEST);
+        assertThat(contentAsString(result)).contains("Arvon tulee olla vähintään");
+        assertThat(Database.findAll().isEmpty());
+    }
+
+
 }
