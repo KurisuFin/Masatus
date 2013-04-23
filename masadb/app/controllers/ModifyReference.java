@@ -77,7 +77,7 @@ public class ModifyReference extends Controller {
         Form<Reference> referenceForm = form(Reference.class).bindFromRequest();
 
         // Validoidaan kentät.
-        if (formHasErrors(referenceForm)) {
+        if (editFormHasErrors(referenceForm)) {
             return badRequest(editForm.render(id, referenceForm));
         }
 
@@ -104,6 +104,33 @@ public class ModifyReference extends Controller {
         Database.save(reference);
 
         return redirect(routes.ReferenceList.show());
+    }
+
+
+    /**
+     * Tarkistaa onko muokkaa lomakkeessa virheellisiä kenttiä.
+     *
+     * @param form lomakkeen tiedot
+     * @return true jos lomakkeessa on virheitä
+     */
+    private static boolean editFormHasErrors(Form<Reference> form) {
+        if (form.hasErrors()) {
+            return true;
+        }
+
+        if (!form.get().month.isEmpty() && !form.get().month.matches(
+                "(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)")) {
+            form.reject("month", "Anna kuukausi muodossa \"jan\", \"feb\", jne.");
+            return true;
+        }
+
+        if (!form.get().pages.isEmpty() && !form.get().pages.matches(
+                "[1-9][0-9]*--[1-9][0-9]*")) {
+            form.reject("pages", "Anna sivut muodossa 123--321.");
+            return true;
+        }
+
+        return false;
     }
 
 
