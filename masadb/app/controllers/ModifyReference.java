@@ -75,12 +75,17 @@ public class ModifyReference extends Controller {
 
     public static Result update(Integer id) {
         Form<Reference> referenceForm = form(Reference.class).bindFromRequest();
-        if(referenceForm.hasErrors()) {
+
+        // Validoidaan kentät.
+        if (formHasErrors(referenceForm)) {
             return badRequest(editForm.render(id, referenceForm));
         }
+
+        // Haetaan tietue
         Reference reference = Reference.find.byId(id);
         Reference ref = referenceForm .get();
 
+        // Muutetaan arvot
         reference.setType(ref.type);
         reference.setAuthor(ref.author);
         reference.setTitle(ref.title);
@@ -95,9 +100,9 @@ public class ModifyReference extends Controller {
         reference.setAddress(ref.address);
         reference.setOrganization(ref.organization);
 
+        // Tallennetaan
         Database.save(reference);
 
-        flash("success", "Tietue " + referenceForm.get().getTitle() + " on päivitetty.");
         return redirect(routes.ReferenceList.show());
     }
 
