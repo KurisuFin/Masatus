@@ -14,6 +14,8 @@ import play.test.FakeApplication;
 import play.test.FakeRequest;
 import play.test.Helpers;
 import static play.test.Helpers.*;
+import static controllers.ModifyReference.generoiViite;
+import static org.junit.Assert.*;
 
 public class ModifyReferenceTest {
 
@@ -430,5 +432,9 @@ public class ModifyReferenceTest {
         assertThat(Database.findAll().isEmpty());
     }
 
+    @Test
+    public void generoiViiteTest() {
+        assertEquals("AK99", generoiViite("Äijä, öö ää and Kekkonen, Urho Kaleva", 1999));
+    }
 
 }
