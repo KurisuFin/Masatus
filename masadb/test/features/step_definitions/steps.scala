@@ -170,4 +170,12 @@ class CucumberSteps extends ScalaDsl with EN {
         assertEquals("2020", browser.find("#year").getText())
         assertEquals("Author Name 2", browser.find("#author").getText())
     }
+
+    And("""^I click delete button$"""){ () =>
+        browser.$("a#delete").click()
+    }
+
+    Then("""^The list should not have deleted entry$"""){ () =>
+        assertTrue(browser.$("td", withText().contains("title1")).isEmpty())
+    }
 }
