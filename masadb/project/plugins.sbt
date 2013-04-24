@@ -13,3 +13,6 @@ addSbtPlugin("templemore" % "xsbt-cucumber-plugin" % "0.6.2")
 
 // JaCoCo. (2.0.0 ei toimi play 2.1:n kanssa!)
 addSbtPlugin("de.johoop" % "jacoco4sbt" % "1.2.4")
+
+// War deploy plugin
+addSbtPlugin("com.github.play2war" % "play2-war-plugin" % "0.9")

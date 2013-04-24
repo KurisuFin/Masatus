@@ -3,6 +3,7 @@ import Keys._
 import play.Project._
 import templemore.xsbt.cucumber.CucumberPlugin
 import de.johoop.jacoco4sbt.JacocoPlugin._
+import com.github.play2war.plugin._
 
 object ApplicationBuild extends Build {
 
@@ -24,7 +25,7 @@ object ApplicationBuild extends Build {
   )
 
   val main = play.Project(appName, appVersion, appDependencies, settings = buildSettings).settings(
-    // Add your own project settings here      
+     Play2WarKeys.servletVersion := "3.0",
 
     // JaCoCo
     parallelExecution in jacoco.Config := false,
@@ -39,6 +40,6 @@ object ApplicationBuild extends Build {
         // mutta mukaan tulee liikaa ylimääräistä.
         "views.html.*"
      )
-  )
+  ).settings(Play2WarPlugin.play2WarSettings: _*)
 
 }
