@@ -284,6 +284,37 @@ public class ModifyReferenceTest {
     // CITE KEY TESTS
 
     @Test
+    public void finnishAlphabetsAreFixedCorrectlyInCiteKeys() {
+        String cite;
+        cite = generoiViite("Ååbacka, Jesse", 2011);
+        assertThat(cite).isEqualTo("A11");
+        cite = generoiViite("Äggänen, Jorma", 2011);
+        assertThat(cite).isEqualTo("A11");
+        cite = generoiViite("Heikki Öljy", 2011);
+        assertThat(cite).isEqualTo("O11");
+    }
+
+    @Test
+    public void smallFinnishAlphabetsAreFixedCorrectlyInCiteKeys() {
+        String cite;
+        cite = generoiViite("å Åkkelstein, Xavier", 2011);
+        assertThat(cite).isEqualTo("aA11");
+        cite = generoiViite("ä Äkkelstein, Xavier", 2011);
+        assertThat(cite).isEqualTo("aA11");
+        cite = generoiViite("ö Ökkelstein, Xavier", 2011);
+        assertThat(cite).isEqualTo("oO11");
+    }
+
+    @Test
+    public void citeKeyContainsMaximumOfFourLettersAndTwoDigits() {
+        String cite;
+        cite = generoiViite("Pekka O and Heikki J and Hilda J and Gunnar Å and Jorma P", 2011);
+        assertThat(cite).isEqualTo("OJJA11");
+    }
+
+    // CITE KEY TESTS WITH POSTING
+
+    @Test
     public void citeKeyContainsFirstLetterOfAuthorAndTwoLastDigitsOfYear() {
         input.put("author", "Urho Kekkonen");
         input.put("year", "2010");

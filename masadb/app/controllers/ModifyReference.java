@@ -172,21 +172,18 @@ public class ModifyReference extends Controller {
                 // Useampiosaiset sukunimet ("van Gogh, Vincent")
                 if (nimi.substring(0, nimi.indexOf(",")).contains(" ")) {
                     char merkki = Character.toLowerCase(nimi.charAt(0));
-                    if (merkki == 'ä') merkki = 'a';
-                    if (merkki == 'ö') merkki = 'o';
+                    merkki = fixCharacter(merkki);
                     viite += merkki;
 
                     merkki = nimi.charAt(nimi.indexOf(" ")+1);
-                    if (merkki == 'Ä') merkki = 'A';
-                    if (merkki == 'Ö') merkki = 'O';
+                    merkki = fixCharacter(merkki);
                     viite += merkki;
                 }
                 // Yksiosaiset sukunimet ("Kekkonen, Urho Kaleva")
                 else
                 {
                     char merkki = nimi.charAt(0);
-                    if (merkki == 'Ä') merkki = 'A';
-                    if (merkki == 'Ö') merkki = 'O';
+                    merkki = fixCharacter(merkki);
                     viite += merkki;
                 }
             }
@@ -194,8 +191,7 @@ public class ModifyReference extends Controller {
             else
             {
                 char merkki = nimi.charAt(nimi.lastIndexOf(" ")+1);
-                if (merkki == 'Ä') merkki = 'A';
-                if (merkki == 'Ö') merkki = 'O';
+                merkki = fixCharacter(merkki);
                 viite += merkki;
             }
         }
@@ -212,6 +208,24 @@ public class ModifyReference extends Controller {
 			viite += yearString.substring(yearString.length()-2, yearString.length());
 
         return makeUniqueCiteKey(viite);
+    }
+
+    /**
+     * Muuttaa skandin tarvittaessa läheiseen vastineeseensa
+     *
+     * @param c Tarkistettava merkki
+     * @return Yksinkertaistettu merkki tai syötetty merkki
+     */
+    private static char fixCharacter(char c) {
+        switch (c) {
+            case 'å': return 'a';
+            case 'ä': return 'a';
+            case 'ö': return 'o';
+            case 'Å': return 'A';
+            case 'Ä': return 'A';
+            case 'Ö': return 'O';
+            default: return c;
+        }
     }
 
     /**
